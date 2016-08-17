@@ -1,0 +1,51 @@
+{
+  "name": "negic",
+  "version": "3.8.11",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel": {
+    "presets": ["es2015"]
+  },
+    "babel-loader": "",
+    "babel-preset-es2015": "^6.9.0",
+    "browser-sync": "",
+    "es6-loader": "^0.2.0",
+    "gulp": "",
+    "gulp-autoprefixer": "",
+    "gulp-changed": "",
+    "gulp-clean": "",
+    "gulp-combine-media-queries": "",
+    "gulp-compass": "",
+    "gulp-csscomb": "",
+    "gulp-sass": "",
+    "gulp-ftp": "",
+    "gulp-if": "",
+    "gulp-imagemin": "",
+    "gulp-jade": "",
+    "gulp-load-plugins": "",
+    "gulp-minify-css": "",
+    "gulp-minify-html": "",
+    "gulp-plumber": "",
+    "gulp-rename": "",
+    "gulp-rev": "",
+    "gulp-uglify": "",
+    "gulp-watch": "",
+    "gulp-webpack": "",
+    "jsx-loader": "",
+    "react": "~0.13.3",
+    "react-router": "~0.13.3",
+    "run-sequence": "",
+    "google-trends-api": "",
+    "webpack": "^1.13.1",
+    "request-promise":"",
+    "request":"",
+    "net":""
+  }
+}

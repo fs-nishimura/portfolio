@@ -1,0 +1,21 @@
+{
+  "name": "namplate_modules",
+  "version": "0.0.1",
+  "authors": [
+    "negic <ng4y4k@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "stats.js": "",
+    "cssuseragent": "",
+    "underscore": "",
+    "jquery": ""
+  }
+}
