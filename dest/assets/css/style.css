@@ -665,8 +665,7 @@ iframe[name='google_conversion_frame']
 .row:after,
 .box_f:after,
 header .h_wrap:after,
-footer .footer_wrap:after,
-.page-home #article:after
+footer .footer_wrap:after
 {
     font-size: 0;
     line-height: 0;
@@ -684,8 +683,7 @@ footer .footer_wrap:after,
 .row,
 .box_f,
 header .h_wrap,
-footer .footer_wrap,
-.page-home #article
+footer .footer_wrap
 {
     min-height: 1px;
 
@@ -2435,11 +2433,6 @@ a:hover
     -khtml-opacity: 0;
 }
 
-.page
-{
-    margin-top: 134px;
-}
-
 .slider .slider_pic
 {
     height: 100%;
@@ -3719,26 +3712,6 @@ footer .copyright
 footer .copyright small
 {
     text-align: center;
-}
-
-.page-home #mainpic
-{
-    position: relative;
-}
-
-.page-home .pic-lazy
-{
-    float: left;
-}
-
-.page-home .btn_scroll
-{
-    color: #fff;
-}
-
-#mainpic
-{
-    margin-bottom: 95px;
 }
 
 @media screen and (min-width: 414px) and (max-width: 640px)

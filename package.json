@@ -46,6 +46,7 @@
     "webpack": "^1.13.1",
     "request-promise":"",
     "request":"",
-    "net":""
+    "net":"",
+    "underscore":""
   }
 }

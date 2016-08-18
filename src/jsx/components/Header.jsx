@@ -18,7 +18,7 @@ class Header extends React.Component {
 
     render() {
         var logo=(
-            <h1 className="h_logo"><Link to="/" key="/">N</Link></h1>
+            <h1 className="h_logo"><Link to="/" key="/">LOGO</Link></h1>
         );
         return (
             <header id="h">

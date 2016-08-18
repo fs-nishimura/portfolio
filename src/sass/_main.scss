@@ -231,28 +231,12 @@ footer {
  * @home
  * -----------------------------------------------------------------------------
  */
- .page-home{
-    #article{
-        // height: 1000px;
-        @extend .clearfix;
-    }
-    #mainpic{
-        position:relative;
-    }
-    .pic-lazy{
-        float:left;
-    }
-    
-    .btn_scroll{
-        color:#fff;
-    }
- }
-
+// #canvas{
+//     margin-top: -73px;
+// }
 /**
  * @Inspiration
  * -----------------------------------------------------------------------------
  */
-#mainpic{
-    margin-bottom: 95px;
-}
+
 
