@@ -2,6 +2,7 @@ var React = require('react');
 var trendsJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=10&jsonp=JSONPCallback";
 var trendsUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=10&jsonp=JSONPCallback";
 var trends=[];
+var fontFamilyArr=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
 
 var loadJSONP = (function(){
   var unique = 0;
@@ -58,36 +59,39 @@ function drawCanvas(){
     current=0,
     rotationSpeed = 0.001;
 
+loadJSONP(
+      trendsJA,
+      function(data) {
+            var htmlStr="";
+            data.responseData.feed.entries.map((entry) => {
+            trends.push(entry.title);
+            }) 
+            for(var i = 0; i < numCards; i += 1) {
+              var card = {
+                angle: Math.random() * i,
+                radius : Math.random()*20,
+                y: 2000 - 4000 / numCards * i,
+                txt:trends[current%trends.length],
+                fontfamily:fontFamilyArr[current%fontFamilyArr.length],
+                size:Math.random() * 150
+              };
+              current++;
+              card.x = Math.cos(card.angle + baseAngle) * radius;
+              card.z = centerZ + Math.sin(card.angle + baseAngle) * radius;
+              cards.push(card);
+            }
+              context.translate(width / 2, height / 2);
+              update();
+          }
+    )
 
-  for(var i = 0; i < numCards; i += 1) {
-    var card = {
-      // angle: 0.1 * i,
-      angle: Math.random() * i,
-      radius : Math.random()*20,
-      y: 2000 - 4000 / numCards * i,
-      img: document.createElement("img")
-    };
-    card.x = Math.cos(card.angle + baseAngle) * radius;
-    card.z = centerZ + Math.sin(card.angle + baseAngle) * radius;
-    cards.push(card);
-  }
 
-  context.translate(width / 2, height / 2);
 
   // document.body.addEventListener("mousemove", function(event) {
   //  rotationSpeed = (event.clientX - width / 2) * 0.00005;
   //  ypos = (event.clientY - height / 2) * 2;
   // });
-loadJSONP(
-      trendsJA,
-      function(data) {
-                    var htmlStr="";
-            data.responseData.feed.entries.map((entry) => {
-              trends.push(entry.title);
-            }) 
-              update();
-          }
-    )
+
 
 
 
@@ -104,12 +108,9 @@ loadJSONP(
       context.translate(card.x, card.y);
 
       context.fillStyle="rgba(0,0,0," + Math.abs(card.z) / 2000;
-      context.beginPath();
       // context.arc(0, 0, card.radius, 0, Math.PI * 2, false);
-      context.font = "italic bold 50px 'ＭＳ Ｐゴシック'";
-      context.fillText(trends[current%trends.length], card.radius, 65);
-      current++;
-      context.fill();
+      context.font = "italic bold " + card.size + "px " + card.fontfamily;
+      context.fillText(card.txt, card.radius, 65);
 
       context.restore();
 

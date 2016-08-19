@@ -23785,7 +23785,7 @@
 	var Header = __webpack_require__(200);
 
 
-	var ____Class5e=React.Component;for(var ____Class5e____Key in ____Class5e){if(____Class5e.hasOwnProperty(____Class5e____Key)){App[____Class5e____Key]=____Class5e[____Class5e____Key];}}var ____SuperProtoOf____Class5e=____Class5e===null?null:____Class5e.prototype;App.prototype=Object.create(____SuperProtoOf____Class5e);App.prototype.constructor=App;App.__superConstructor__=____Class5e;function App(){"use strict";if(____Class5e!==null){____Class5e.apply(this,arguments);}}
+	var ____Class5q=React.Component;for(var ____Class5q____Key in ____Class5q){if(____Class5q.hasOwnProperty(____Class5q____Key)){App[____Class5q____Key]=____Class5q[____Class5q____Key];}}var ____SuperProtoOf____Class5q=____Class5q===null?null:____Class5q.prototype;App.prototype=Object.create(____SuperProtoOf____Class5q);App.prototype.constructor=App;App.__superConstructor__=____Class5q;function App(){"use strict";if(____Class5q!==null){____Class5q.apply(this,arguments);}}
 	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {id: "wrapAll"}, 
@@ -23816,10 +23816,10 @@
 	var MenuData = __webpack_require__(202).menu;
 
 
-	var ____Class5l=React.Component;for(var ____Class5l____Key in ____Class5l){if(____Class5l.hasOwnProperty(____Class5l____Key)){Header[____Class5l____Key]=____Class5l[____Class5l____Key];}}var ____SuperProtoOf____Class5l=____Class5l===null?null:____Class5l.prototype;Header.prototype=Object.create(____SuperProtoOf____Class5l);Header.prototype.constructor=Header;Header.__superConstructor__=____Class5l;
+	var ____Class5x=React.Component;for(var ____Class5x____Key in ____Class5x){if(____Class5x.hasOwnProperty(____Class5x____Key)){Header[____Class5x____Key]=____Class5x[____Class5x____Key];}}var ____SuperProtoOf____Class5x=____Class5x===null?null:____Class5x.prototype;Header.prototype=Object.create(____SuperProtoOf____Class5x);Header.prototype.constructor=Header;Header.__superConstructor__=____Class5x;
 
 	    function Header(props) {"use strict";
-	        ____Class5l.call(this,props)
+	        ____Class5x.call(this,props)
 
 	        this.state = {
 	            items: MenuData.map(function(item)  {return _.clone(item);})
@@ -25445,6 +25445,7 @@
 	var trendsJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=10&jsonp=JSONPCallback";
 	var trendsUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=10&jsonp=JSONPCallback";
 	var trends=[];
+	var fontFamilyArr=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
 
 	var loadJSONP = (function(){
 	  var unique = 0;
@@ -25471,7 +25472,7 @@
 
 
 
-	var ____Class5f=React.Component;for(var ____Class5f____Key in ____Class5f){if(____Class5f.hasOwnProperty(____Class5f____Key)){Top[____Class5f____Key]=____Class5f[____Class5f____Key];}}var ____SuperProtoOf____Class5f=____Class5f===null?null:____Class5f.prototype;Top.prototype=Object.create(____SuperProtoOf____Class5f);Top.prototype.constructor=Top;Top.__superConstructor__=____Class5f;function Top(){"use strict";if(____Class5f!==null){____Class5f.apply(this,arguments);}}
+	var ____Class5s=React.Component;for(var ____Class5s____Key in ____Class5s){if(____Class5s.hasOwnProperty(____Class5s____Key)){Top[____Class5s____Key]=____Class5s[____Class5s____Key];}}var ____SuperProtoOf____Class5s=____Class5s===null?null:____Class5s.prototype;Top.prototype=Object.create(____SuperProtoOf____Class5s);Top.prototype.constructor=Top;Top.__superConstructor__=____Class5s;function Top(){"use strict";if(____Class5s!==null){____Class5s.apply(this,arguments);}}
 	    Object.defineProperty(Top.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-home page"}, 
@@ -25501,36 +25502,39 @@
 	    current=0,
 	    rotationSpeed = 0.001;
 
+	loadJSONP(
+	      trendsJA,
+	      function(data) {
+	            var htmlStr="";
+	            data.responseData.feed.entries.map(function(entry)  {
+	            trends.push(entry.title);
+	            }) 
+	            for(var i = 0; i < numCards; i += 1) {
+	              var card = {
+	                angle: Math.random() * i,
+	                radius : Math.random()*20,
+	                y: 2000 - 4000 / numCards * i,
+	                txt:trends[current%trends.length],
+	                fontfamily:fontFamilyArr[current%fontFamilyArr.length],
+	                size:Math.random() * 150
+	              };
+	              current++;
+	              card.x = Math.cos(card.angle + baseAngle) * radius;
+	              card.z = centerZ + Math.sin(card.angle + baseAngle) * radius;
+	              cards.push(card);
+	            }
+	              context.translate(width / 2, height / 2);
+	              update();
+	          }
+	    )
 
-	  for(var i = 0; i < numCards; i += 1) {
-	    var card = {
-	      // angle: 0.1 * i,
-	      angle: Math.random() * i,
-	      radius : Math.random()*20,
-	      y: 2000 - 4000 / numCards * i,
-	      img: document.createElement("img")
-	    };
-	    card.x = Math.cos(card.angle + baseAngle) * radius;
-	    card.z = centerZ + Math.sin(card.angle + baseAngle) * radius;
-	    cards.push(card);
-	  }
 
-	  context.translate(width / 2, height / 2);
 
 	  // document.body.addEventListener("mousemove", function(event) {
 	  //  rotationSpeed = (event.clientX - width / 2) * 0.00005;
 	  //  ypos = (event.clientY - height / 2) * 2;
 	  // });
-	loadJSONP(
-	      trendsJA,
-	      function(data) {
-	                    var htmlStr="";
-	            data.responseData.feed.entries.map(function(entry)  {
-	              trends.push(entry.title);
-	            }) 
-	              update();
-	          }
-	    )
+
 
 
 
@@ -25547,12 +25551,9 @@
 	      context.translate(card.x, card.y);
 
 	      context.fillStyle="rgba(0,0,0," + Math.abs(card.z) / 2000;
-	      context.beginPath();
 	      // context.arc(0, 0, card.radius, 0, Math.PI * 2, false);
-	      context.font = "italic bold 50px 'ＭＳ Ｐゴシック'";
-	      context.fillText(trends[current%trends.length], card.radius, 65);
-	      current++;
-	      context.fill();
+	      context.font = "italic bold " + card.size + "px " + card.fontfamily;
+	      context.fillText(card.txt, card.radius, 65);
 
 	      context.restore();
 
@@ -25580,7 +25581,7 @@
 	var React = __webpack_require__(1);
 
 
-	var ____Class5g=React.Component;for(var ____Class5g____Key in ____Class5g){if(____Class5g.hasOwnProperty(____Class5g____Key)){About[____Class5g____Key]=____Class5g[____Class5g____Key];}}var ____SuperProtoOf____Class5g=____Class5g===null?null:____Class5g.prototype;About.prototype=Object.create(____SuperProtoOf____Class5g);About.prototype.constructor=About;About.__superConstructor__=____Class5g;function About(){"use strict";if(____Class5g!==null){____Class5g.apply(this,arguments);}}
+	var ____Class5r=React.Component;for(var ____Class5r____Key in ____Class5r){if(____Class5r.hasOwnProperty(____Class5r____Key)){About[____Class5r____Key]=____Class5r[____Class5r____Key];}}var ____SuperProtoOf____Class5r=____Class5r===null?null:____Class5r.prototype;About.prototype=Object.create(____SuperProtoOf____Class5r);About.prototype.constructor=About;About.__superConstructor__=____Class5r;function About(){"use strict";if(____Class5r!==null){____Class5r.apply(this,arguments);}}
 	    Object.defineProperty(About.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-about"}, 
@@ -25600,7 +25601,7 @@
 	var React = __webpack_require__(1);
 
 
-	var ____Class5h=React.Component;for(var ____Class5h____Key in ____Class5h){if(____Class5h.hasOwnProperty(____Class5h____Key)){Concept[____Class5h____Key]=____Class5h[____Class5h____Key];}}var ____SuperProtoOf____Class5h=____Class5h===null?null:____Class5h.prototype;Concept.prototype=Object.create(____SuperProtoOf____Class5h);Concept.prototype.constructor=Concept;Concept.__superConstructor__=____Class5h;function Concept(){"use strict";if(____Class5h!==null){____Class5h.apply(this,arguments);}}
+	var ____Class5t=React.Component;for(var ____Class5t____Key in ____Class5t){if(____Class5t.hasOwnProperty(____Class5t____Key)){Concept[____Class5t____Key]=____Class5t[____Class5t____Key];}}var ____SuperProtoOf____Class5t=____Class5t===null?null:____Class5t.prototype;Concept.prototype=Object.create(____SuperProtoOf____Class5t);Concept.prototype.constructor=Concept;Concept.__superConstructor__=____Class5t;function Concept(){"use strict";if(____Class5t!==null){____Class5t.apply(this,arguments);}}
 	    Object.defineProperty(Concept.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-concept"}, 
@@ -25620,7 +25621,7 @@
 	var React = __webpack_require__(1);
 
 
-	var ____Class5i=React.Component;for(var ____Class5i____Key in ____Class5i){if(____Class5i.hasOwnProperty(____Class5i____Key)){Item[____Class5i____Key]=____Class5i[____Class5i____Key];}}var ____SuperProtoOf____Class5i=____Class5i===null?null:____Class5i.prototype;Item.prototype=Object.create(____SuperProtoOf____Class5i);Item.prototype.constructor=Item;Item.__superConstructor__=____Class5i;function Item(){"use strict";if(____Class5i!==null){____Class5i.apply(this,arguments);}}
+	var ____Class5u=React.Component;for(var ____Class5u____Key in ____Class5u){if(____Class5u.hasOwnProperty(____Class5u____Key)){Item[____Class5u____Key]=____Class5u[____Class5u____Key];}}var ____SuperProtoOf____Class5u=____Class5u===null?null:____Class5u.prototype;Item.prototype=Object.create(____SuperProtoOf____Class5u);Item.prototype.constructor=Item;Item.__superConstructor__=____Class5u;function Item(){"use strict";if(____Class5u!==null){____Class5u.apply(this,arguments);}}
 	    Object.defineProperty(Item.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-item"}, 
@@ -25640,7 +25641,7 @@
 	var React = __webpack_require__(1);
 
 
-	var ____Class5j=React.Component;for(var ____Class5j____Key in ____Class5j){if(____Class5j.hasOwnProperty(____Class5j____Key)){News[____Class5j____Key]=____Class5j[____Class5j____Key];}}var ____SuperProtoOf____Class5j=____Class5j===null?null:____Class5j.prototype;News.prototype=Object.create(____SuperProtoOf____Class5j);News.prototype.constructor=News;News.__superConstructor__=____Class5j;function News(){"use strict";if(____Class5j!==null){____Class5j.apply(this,arguments);}}
+	var ____Class5v=React.Component;for(var ____Class5v____Key in ____Class5v){if(____Class5v.hasOwnProperty(____Class5v____Key)){News[____Class5v____Key]=____Class5v[____Class5v____Key];}}var ____SuperProtoOf____Class5v=____Class5v===null?null:____Class5v.prototype;News.prototype=Object.create(____SuperProtoOf____Class5v);News.prototype.constructor=News;News.__superConstructor__=____Class5v;function News(){"use strict";if(____Class5v!==null){____Class5v.apply(this,arguments);}}
 	    Object.defineProperty(News.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-news"}, 
@@ -25661,7 +25662,7 @@
 	var Router = __webpack_require__(157);
 	var $__0=       Router,State=$__0.State,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,NotFoundRoute=$__0.NotFoundRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
 
-	var ____Class5k=React.Component;for(var ____Class5k____Key in ____Class5k){if(____Class5k.hasOwnProperty(____Class5k____Key)){LangRoot[____Class5k____Key]=____Class5k[____Class5k____Key];}}var ____SuperProtoOf____Class5k=____Class5k===null?null:____Class5k.prototype;LangRoot.prototype=Object.create(____SuperProtoOf____Class5k);LangRoot.prototype.constructor=LangRoot;LangRoot.__superConstructor__=____Class5k;function LangRoot(){"use strict";if(____Class5k!==null){____Class5k.apply(this,arguments);}}
+	var ____Class5w=React.Component;for(var ____Class5w____Key in ____Class5w){if(____Class5w.hasOwnProperty(____Class5w____Key)){LangRoot[____Class5w____Key]=____Class5w[____Class5w____Key];}}var ____SuperProtoOf____Class5w=____Class5w===null?null:____Class5w.prototype;LangRoot.prototype=Object.create(____SuperProtoOf____Class5w);LangRoot.prototype.constructor=LangRoot;LangRoot.__superConstructor__=____Class5w;function LangRoot(){"use strict";if(____Class5w!==null){____Class5w.apply(this,arguments);}}
 	    Object.defineProperty(LangRoot.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement(RouteHandler, null)
