@@ -122,10 +122,13 @@ var utils = {
 
 }
 var React = require('react');
-var trendsJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=10&jsonp=JSONPCallback";
-var trendsUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=10&jsonp=JSONPCallback";
+var trendsJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=50&jsonp=JSONPCallback";
+var trendsUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=50&jsonp=JSONPCallback";
 var trends=[];
-var fontFamilyArr=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
+// var fontFamilyArr=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
+var fontFamilyArr=['游明朝体'];
+
+var speed = 5;
 
 var loadJSONP = (function(){
   var unique = 0;
@@ -174,20 +177,20 @@ function drawCanvas(){
     current=0,
     width = canvas.width = window.innerWidth,
     height = canvas.height = window.innerHeight,
-    fl=300,
+    fl=100,
     shapes=[],
-    numShapes=300;
+    numShapes=400;
 
   for (var i = 0; i < numShapes; i++) {
     shapes[i] = {
-      x:utils.randomRange(-6000,6000),
-      y:utils.randomRange(-6000,6000),
-      z:utils.randomRange(0,6000)
+      x:utils.randomRange(-1000,1000),
+      y:utils.randomRange(-1000,1000),
+      z:utils.randomRange(0,1000)
     };
   }
 
 loadJSONP(
-      trendsJA,
+      trendsUS,
       function(data) {
             var htmlStr="";
             data.responseData.feed.entries.map((entry) => {
@@ -195,14 +198,14 @@ loadJSONP(
             }) 
             for(var i = 0; i < numShapes; i += 1) {
               shapes[i] = {
-      x:utils.randomRange(-6000,6000),
-      y:utils.randomRange(-6000,6000),
-      z:utils.randomRange(0,6000),
+                      x:utils.randomRange(-6000,6000),
+                      y:utils.randomRange(-6000,6000),
+                      z:utils.randomRange(0,6000),
                       radius : Math.random()*20,
-
-      txt:trends[current%trends.length],
-      fontfamily:fontFamilyArr[current%fontFamilyArr.length],
-      size:Math.random() * 150
+                      txt:trends[current%trends.length],
+                      // fontfamily:fontFamilyArr[current%fontFamilyArr.length],
+                      fontfamily:fontFamilyArr[0],
+                      size:Math.random() * 150
               };
               current++;
             }
@@ -231,9 +234,9 @@ loadJSONP(
       context.translate(shape.x * perspective, shape.y * perspective);
       context.scale(perspective, perspective);
       // square:
-      context.fillStyle="rgba(0,0,0," + (1-Math.abs(shape.z) / 2000)+")";
+      context.fillStyle="rgba(255,255,255," + (1-Math.abs(shape.z) / 3000)+")";
       // context.arc(0, 0, shape.radius, 0, Math.PI * 2, false);
-      context.font = "italic bold " + shape.size + "px " + shape.fontfamily;
+      context.font = "italic bold " + shape.size + "px " + shape.fontfamily + ",serif";
       context.fillText(shape.txt, shape.radius, 65);
       // circle:
       // context.beginPath();
@@ -252,9 +255,11 @@ loadJSONP(
       // }
 
       // move toward:
-      shape.z -= 10;
+      shape.z -= speed;
       if(shape.z < 0) {
         shape.z = utils.randomRange(5000,10000);
+      }else if(shape.z>10000){
+        shape.z=0;
       }
     }
     requestAnimationFrame(update); 
@@ -262,8 +267,37 @@ loadJSONP(
 }
 }
    
+window.onmousewheel = function(event){
+  var direction = scrollDirection(event);
+  console.log(direction);
+  if(direction=="up"){
+    speed-=0.5;
+  }else{
+    speed+=0.5;
+  }
+  if(speed>=10){
+    speed=10;
+  }else if(speed<=-10){
+    speed=-10;
+  }
+}
 
+function scrollDirection(event) {
+    let delta;
 
+    if (event.deltaY) {
+        delta = -event.deltaY;
+    } else if (event.wheelDelta) {
+        delta = event.wheelDelta;
+    } else {
+        delta = -event.detail;
+    }
 
+    if (delta < 0) {
+        return 'down';
+    } else if (delta > 0) {
+        return 'up';
+    }
+}
 
 module.exports = Top;

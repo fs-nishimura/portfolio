@@ -18,7 +18,7 @@ class Header extends React.Component {
 
     render() {
         var logo=(
-            <h1 className="h_logo"><Link to="/" key="/">LOGO</Link></h1>
+            <h1 className="h_logo"><Link to="/" key="/"></Link></h1>
         );
         return (
             <header id="h">
@@ -28,7 +28,7 @@ class Header extends React.Component {
                     {this.state.items.map((item) => {
                         var path = item.path;
                         return (
-                            <li><Link to={path} key={path}>{item.name}</Link></li>
+                            <li><Link to={path} key={path}></Link></li>
                         );
                     })}
                 </ul>
