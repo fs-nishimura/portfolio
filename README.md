@@ -1,5 +1,16 @@
 # namplate
 
+
+## 
+portfolio site ideas
+- Canvas x React x Google trendsでマトリックス風
+- Google trendsじゃなくて私のブログ記事からワードを取得してランダムに表示するのでいいかも
+
+
+
+
+
+
 ## Feature
 - webpack & gulp : react(jsx)も対応
 - ES2015

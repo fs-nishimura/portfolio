@@ -49,12 +49,14 @@
 	var $__0=      Router,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,NotFoundRoute=$__0.NotFoundRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
 	var App = __webpack_require__(199);
 	var Top = __webpack_require__(203);
-	var About = __webpack_require__(204);
-	var Works = __webpack_require__(205);
-	var Articles = __webpack_require__(206);
-	var Contact = __webpack_require__(207);
+	var About = __webpack_require__(206);
+	var Works = __webpack_require__(207);
+	var Articles = __webpack_require__(208);
+	var Contact = __webpack_require__(209);
+	var LangRoot = __webpack_require__(210);
 
-	var LangRoot = __webpack_require__(208);
+	// import CanvasUtils from './components/canvasUtils';
+
 
 	var routes = (
 	    React.createElement(Route, {path: "/", name: "app", handler: App}, 
@@ -23785,7 +23787,7 @@
 	var Header = __webpack_require__(200);
 
 
-	var ____Class17=React.Component;for(var ____Class17____Key in ____Class17){if(____Class17.hasOwnProperty(____Class17____Key)){App[____Class17____Key]=____Class17[____Class17____Key];}}var ____SuperProtoOf____Class17=____Class17===null?null:____Class17.prototype;App.prototype=Object.create(____SuperProtoOf____Class17);App.prototype.constructor=App;App.__superConstructor__=____Class17;function App(){"use strict";if(____Class17!==null){____Class17.apply(this,arguments);}}
+	var ____Classhx=React.Component;for(var ____Classhx____Key in ____Classhx){if(____Classhx.hasOwnProperty(____Classhx____Key)){App[____Classhx____Key]=____Classhx[____Classhx____Key];}}var ____SuperProtoOf____Classhx=____Classhx===null?null:____Classhx.prototype;App.prototype=Object.create(____SuperProtoOf____Classhx);App.prototype.constructor=App;App.__superConstructor__=____Classhx;function App(){"use strict";if(____Classhx!==null){____Classhx.apply(this,arguments);}}
 	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {id: "wrapAll"}, 
@@ -23816,10 +23818,10 @@
 	var MenuData = __webpack_require__(202).menu;
 
 
-	var ____Class1e=React.Component;for(var ____Class1e____Key in ____Class1e){if(____Class1e.hasOwnProperty(____Class1e____Key)){Header[____Class1e____Key]=____Class1e[____Class1e____Key];}}var ____SuperProtoOf____Class1e=____Class1e===null?null:____Class1e.prototype;Header.prototype=Object.create(____SuperProtoOf____Class1e);Header.prototype.constructor=Header;Header.__superConstructor__=____Class1e;
+	var ____ClasshD=React.Component;for(var ____ClasshD____Key in ____ClasshD){if(____ClasshD.hasOwnProperty(____ClasshD____Key)){Header[____ClasshD____Key]=____ClasshD[____ClasshD____Key];}}var ____SuperProtoOf____ClasshD=____ClasshD===null?null:____ClasshD.prototype;Header.prototype=Object.create(____SuperProtoOf____ClasshD);Header.prototype.constructor=Header;Header.__superConstructor__=____ClasshD;
 
 	    function Header(props) {"use strict";
-	        ____Class1e.call(this,props)
+	        ____ClasshD.call(this,props)
 
 	        this.state = {
 	            items: MenuData.map(function(item)  {return _.clone(item);})
@@ -25441,161 +25443,15 @@
 /* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var utils = {
-	  norm: function(value, min, max) {
-	    return (value - min) / (max - min);
-	  },
-
-	  lerp: function(norm, min, max) {
-	    return (max - min) * norm + min;
-	  },
-
-	  map: function(value, sourceMin, sourceMax, destMin, destMax) {
-	    return utils.lerp(utils.norm(value, sourceMin, sourceMax), destMin, destMax);
-	  },
-
-	  clamp: function(value, min, max) {
-	    return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
-	  },
-
-	  distance: function(p0, p1) {
-	    var dx = p1.x - p0.x,
-	      dy = p1.y - p0.y;
-	    return Math.sqrt(dx * dx + dy * dy);
-	  },
-
-	  distanceXY: function(x0, y0, x1, y1) {
-	    var dx = x1 - x0,
-	      dy = y1 - y0;
-	    return Math.sqrt(dx * dx + dy * dy);
-	  },
-
-	  circleCollision: function(c0, c1) {
-	    return utils.distance(c0, c1) <= c0.radius + c1.radius;
-	  },
-
-	  circlePointCollision: function(x, y, circle) {
-	    return utils.distanceXY(x, y, circle.x, circle.y) < circle.radius;
-	  },
-
-	  pointInRect: function(x, y, rect) {
-	    return utils.inRange(x, rect.x, rect.x + rect.width) &&
-	           utils.inRange(y, rect.y, rect.y + rect.height);
-	  },
-
-	  inRange: function(value, min, max) {
-	    return value >= Math.min(min, max) && value <= Math.max(min, max);
-	  },
-
-	  rangeIntersect: function(min0, max0, min1, max1) {
-	    return Math.max(min0, max0) >= Math.min(min1, max1) && 
-	         Math.min(min0, max0) <= Math.max(min1, max1);
-	  },
-
-	  rectIntersect: function(r0, r1) {
-	    return utils.rangeIntersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width) &&
-	         utils.rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height);
-	  },
-
-	  degreesToRads: function(degrees) {
-	    return degrees / 180 * Math.PI;
-	  },
-
-	  radsToDegrees: function(radians) {
-	    return radians * 180 / Math.PI;
-	  },
-
-	  randomRange: function(min, max) {
-	    return min + Math.random() * (max - min);
-	  },
-
-	  randomInt: function(min, max) {
-	    return Math.floor(min + Math.random() * (max - min + 1));
-	  },
-
-	  roundToPlaces: function(value, places) {
-	    var mult = Math.pow(10, places);
-	    return Math.round(value * mult) / mult;
-	  },
-
-	  roundNearest: function(value, nearest) {
-	    return Math.round(value / nearest) * nearest;
-	  },
-
-	  quadraticBezier: function(p0, p1, p2, t, pFinal) {
-	    pFinal = pFinal || {};
-	    pFinal.x = Math.pow(1 - t, 2) * p0.x + 
-	           (1 - t) * 2 * t * p1.x + 
-	           t * t * p2.x;
-	    pFinal.y = Math.pow(1 - t, 2) * p0.y + 
-	           (1 - t) * 2 * t * p1.y + 
-	           t * t * p2.y;
-	    return pFinal;
-	  },
-
-	  cubicBezier: function(p0, p1, p2, p3, t, pFinal) {
-	    pFinal = pFinal || {};
-	    pFinal.x = Math.pow(1 - t, 3) * p0.x + 
-	           Math.pow(1 - t, 2) * 3 * t * p1.x + 
-	           (1 - t) * 3 * t * t * p2.x + 
-	           t * t * t * p3.x;
-	    pFinal.y = Math.pow(1 - t, 3) * p0.y + 
-	           Math.pow(1 - t, 2) * 3 * t * p1.y + 
-	           (1 - t) * 3 * t * t * p2.y + 
-	           t * t * t * p3.y;
-	    return pFinal;
-	  },
-
-	  multicurve: function(points, context) {
-	    var p0, p1, midx, midy;
-
-	    context.moveTo(points[0].x, points[0].y);
-
-	    for(var i = 1; i < points.length - 2; i += 1) {
-	      p0 = points[i];
-	      p1 = points[i + 1];
-	      midx = (p0.x + p1.x) / 2;
-	      midy = (p0.y + p1.y) / 2;
-	      context.quadraticCurveTo(p0.x, p0.y, midx, midy);
-	    }
-	    p0 = points[points.length - 2];
-	    p1 = points[points.length - 1];
-	    context.quadraticCurveTo(p0.x, p0.y, p1.x, p1.y);
-	  }
-
-	}
 	var React = __webpack_require__(1);
-	var trendsJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=10&jsonp=JSONPCallback";
-	var trendsUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=10&jsonp=JSONPCallback";
-	var trends=[];
-	var fontFamilyArr=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
-
-	var loadJSONP = (function(){
-	  var unique = 0;
-	  return function(url, callback, context) {
-	    // INIT
-	    var name = "_jsonp_" + unique++;
-	    if (url.match(/\?/)) url += "&callback="+name;
-	    else url += "?callback="+name;
-	    // Create script
-	    var script = document.createElement('script');
-	    script.type = 'text/javascript';
-	    script.src = url;
-	    // Setup handler
-	    window[name] = function(data){
-	      callback.call((context || window), data);
-	      document.getElementsByTagName('head')[0].removeChild(script);
-	      script = null;
-	      delete window[name];
-	    };
-	    // Load JSON
-	    document.getElementsByTagName('head')[0].appendChild(script);
-	  };
-	})();
+	//need http://babeljs.io/docs/setup/#webpack
+	var CanvasUtils = __webpack_require__(204).default;
+	var loadJSONP = __webpack_require__(205).loadJSONP;
+	var CanvasUtils_ = new CanvasUtils();
 
 
 
-	var ____Class18=React.Component;for(var ____Class18____Key in ____Class18){if(____Class18.hasOwnProperty(____Class18____Key)){Top[____Class18____Key]=____Class18[____Class18____Key];}}var ____SuperProtoOf____Class18=____Class18===null?null:____Class18.prototype;Top.prototype=Object.create(____SuperProtoOf____Class18);Top.prototype.constructor=Top;Top.__superConstructor__=____Class18;function Top(){"use strict";if(____Class18!==null){____Class18.apply(this,arguments);}}
+	var ____Classhw=React.Component;for(var ____Classhw____Key in ____Classhw){if(____Classhw.hasOwnProperty(____Classhw____Key)){Top[____Classhw____Key]=____Classhw[____Classhw____Key];}}var ____SuperProtoOf____Classhw=____Classhw===null?null:____Classhw.prototype;Top.prototype=Object.create(____SuperProtoOf____Classhw);Top.prototype.constructor=Top;Top.__superConstructor__=____Classhw;function Top(){"use strict";if(____Classhw!==null){____Classhw.apply(this,arguments);}}
 	    Object.defineProperty(Top.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-home page"}, 
@@ -25612,60 +25468,56 @@
 
 
 	function drawCanvas(){
+
 	  var canvas = document.getElementById("canvas"),
-	    context = canvas.getContext("2d"),
-	    current=0,
-	    width = canvas.width = window.innerWidth,
-	    height = canvas.height = window.innerHeight,
-	    fl=300,
-	    shapes=[],
-	    numShapes=300;
+	  context = canvas.getContext("2d"),
+	  current=0,
+	  width = canvas.width = window.innerWidth,
+	  height = canvas.height = window.innerHeight,
+	  fl=300,
+	  shapes=[],
+	  numShapes=300;
 
 	  for (var i = 0; i < numShapes; i++) {
 	    shapes[i] = {
-	      x:utils.randomRange(-6000,6000),
-	      y:utils.randomRange(-6000,6000),
-	      z:utils.randomRange(0,6000)
+	      x:CanvasUtils_.randomRange(-6000,6000),
+	      y:CanvasUtils_.randomRange(-6000,6000),
+	      z:CanvasUtils_.randomRange(0,6000)
 	    };
 	  }
 
+	const TRENDSJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=20&jsonp=JSONPCallback";
+	const TRENDSUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=20&jsonp=JSONPCallback";
+	var FONTFAMILYARR=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
+	var trends=[];
 	loadJSONP(
-	      trendsJA,
-	      function(data) {
-	            var htmlStr="";
-	            data.responseData.feed.entries.map(function(entry)  {
-	            trends.push(entry.title);
-	            }) 
-	            for(var i = 0; i < numShapes; i += 1) {
-	              shapes[i] = {
-	      x:utils.randomRange(-6000,6000),
-	      y:utils.randomRange(-6000,6000),
-	      z:utils.randomRange(0,6000),
-	                      radius : Math.random()*20,
-
+	  TRENDSJA,
+	  function(data) {
+	    var htmlStr="";
+	    data.responseData.feed.entries.map(function(entry)  {
+	    trends.push(entry.title);
+	    }) 
+	    
+	    for(var i = 0; i < numShapes; i += 1) {
+	      shapes[i] = {
+	      x:CanvasUtils_.randomRange(-6000,6000),
+	      y:CanvasUtils_.randomRange(-6000,6000),
+	      z:CanvasUtils_.randomRange(0,6000),
+	      Pradius : Math.random()*20,
 	      txt:trends[current%trends.length],
-	      fontfamily:fontFamilyArr[current%fontFamilyArr.length],
+	      fontfamily:FONTFAMILYARR[current%FONTFAMILYARR.length],
 	      size:Math.random() * 150
-	              };
-	              current++;
-	            }
-	              context.translate(width / 2, height / 2);
-	              update();
-	          }
-	    )
-
-
-
-	  // document.body.addEventListener("mousemove", function(event) {
-	  //  rotationSpeed = (event.clientX - width / 2) * 0.00005;
-	  //  ypos = (event.clientY - height / 2) * 2;
-	  // });
-
-
-
+	      };
+	      current++;
+	    }
+	      context.translate(width / 2, height / 2);
+	      update();
+	  }
+	)
 
 	  function update() {
-	             context.clearRect(-width / 2, -height / 2, width, height);
+
+	   context.clearRect(-width / 2, -height / 2, width, height);
 	    for(var i = 0; i < numShapes; i += 1) {
 	      var shape = shapes[i],
 	        perspective = fl / (fl + shape.z);
@@ -25684,42 +25536,541 @@
 	      // context.fill();
 
 	      // letter:
-	      // context.fillText(shape.char, -100, -100)
-
+	      context.fillText(shape.txt, -100, -100)
 	      context.restore();
-
 	      // move away:
 	      // shape.z += 5;
 	      // if(shape.z > 10000) {
 	      //  shape.z = 0;
 	      // }
-
 	      // move toward:
 	      shape.z -= 10;
 	      if(shape.z < 0) {
-	        shape.z = utils.randomRange(5000,10000);
+	        shape.z = CanvasUtils_.randomRange(5000,10000);
 	      }
 	    }
 	    requestAnimationFrame(update); 
-	   
+	  }
 	}
-	}
 	   
-
-
-
 
 	module.exports = Top;
 
 
 /***/ },
 /* 204 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+
+	var CanvasUtils = function () {
+	  function CanvasUtils() {
+	    _classCallCheck(this, CanvasUtils);
+	  }
+
+	  _createClass(CanvasUtils, [{
+	    key: "norm",
+	    value: function norm(value, min, max) {
+	      return (value - min) / (max - min);
+	    }
+	  }, {
+	    key: "lerp",
+	    value: function lerp(norm, min, max) {
+	      return (max - min) * norm + min;
+	    }
+	  }, {
+	    key: "map",
+	    value: function map(value, sourceMin, sourceMax, destMin, destMax) {
+	      return utils.lerp(utils.norm(value, sourceMin, sourceMax), destMin, destMax);
+	    }
+	  }, {
+	    key: "clamp",
+	    value: function clamp(value, min, max) {
+	      return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
+	    }
+	  }, {
+	    key: "distance",
+	    value: function distance(p0, p1) {
+	      var dx = p1.x - p0.x,
+	          dy = p1.y - p0.y;
+	      return Math.sqrt(dx * dx + dy * dy);
+	    }
+	  }, {
+	    key: "distanceXY",
+	    value: function distanceXY(x0, y0, x1, y1) {
+	      var dx = x1 - x0,
+	          dy = y1 - y0;
+	      return Math.sqrt(dx * dx + dy * dy);
+	    }
+	  }, {
+	    key: "circleCollision",
+	    value: function circleCollision(c0, c1) {
+	      return utils.distance(c0, c1) <= c0.radius + c1.radius;
+	    }
+	  }, {
+	    key: "circlePointCollision",
+	    value: function circlePointCollision(x, y, circle) {
+	      return utils.distanceXY(x, y, circle.x, circle.y) < circle.radius;
+	    }
+	  }, {
+	    key: "pointInRect",
+	    value: function pointInRect(x, y, rect) {
+	      return utils.inRange(x, rect.x, rect.x + rect.width) && utils.inRange(y, rect.y, rect.y + rect.height);
+	    }
+	  }, {
+	    key: "inRange",
+	    value: function inRange(value, min, max) {
+	      return value >= Math.min(min, max) && value <= Math.max(min, max);
+	    }
+	  }, {
+	    key: "rangeIntersect",
+	    value: function rangeIntersect(min0, max0, min1, max1) {
+	      return Math.max(min0, max0) >= Math.min(min1, max1) && Math.min(min0, max0) <= Math.max(min1, max1);
+	    }
+	  }, {
+	    key: "rectIntersect",
+	    value: function rectIntersect(r0, r1) {
+	      return utils.rangeIntersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width) && utils.rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height);
+	    }
+	  }, {
+	    key: "degreesToRads",
+	    value: function degreesToRads(degrees) {
+	      return degrees / 180 * Math.PI;
+	    }
+	  }, {
+	    key: "radsToDegrees",
+	    value: function radsToDegrees(radians) {
+	      return radians * 180 / Math.PI;
+	    }
+	  }, {
+	    key: "randomRange",
+	    value: function randomRange(min, max) {
+	      return min + Math.random() * (max - min);
+	    }
+	  }, {
+	    key: "randomInt",
+	    value: function randomInt(min, max) {
+	      return Math.floor(min + Math.random() * (max - min + 1));
+	    }
+	  }, {
+	    key: "roundToPlaces",
+	    value: function roundToPlaces(value, places) {
+	      var mult = Math.pow(10, places);
+	      return Math.round(value * mult) / mult;
+	    }
+	  }, {
+	    key: "roundNearest",
+	    value: function roundNearest(value, nearest) {
+	      return Math.round(value / nearest) * nearest;
+	    }
+	  }, {
+	    key: "quadraticBezier",
+	    value: function quadraticBezier(p0, p1, p2, t, pFinal) {
+	      pFinal = pFinal || {};
+	      pFinal.x = Math.pow(1 - t, 2) * p0.x + (1 - t) * 2 * t * p1.x + t * t * p2.x;
+	      pFinal.y = Math.pow(1 - t, 2) * p0.y + (1 - t) * 2 * t * p1.y + t * t * p2.y;
+	      return pFinal;
+	    }
+	  }, {
+	    key: "cubicBezier",
+	    value: function cubicBezier(p0, p1, p2, p3, t, pFinal) {
+	      pFinal = pFinal || {};
+	      pFinal.x = Math.pow(1 - t, 3) * p0.x + Math.pow(1 - t, 2) * 3 * t * p1.x + (1 - t) * 3 * t * t * p2.x + t * t * t * p3.x;
+	      pFinal.y = Math.pow(1 - t, 3) * p0.y + Math.pow(1 - t, 2) * 3 * t * p1.y + (1 - t) * 3 * t * t * p2.y + t * t * t * p3.y;
+	      return pFinal;
+	    }
+	  }, {
+	    key: "multicurve",
+	    value: function multicurve(points, context) {
+	      var p0, p1, midx, midy;
+
+	      context.moveTo(points[0].x, points[0].y);
+
+	      for (var i = 1; i < points.length - 2; i += 1) {
+	        p0 = points[i];
+	        p1 = points[i + 1];
+	        midx = (p0.x + p1.x) / 2;
+	        midy = (p0.y + p1.y) / 2;
+	        context.quadraticCurveTo(p0.x, p0.y, midx, midy);
+	      }
+	      p0 = points[points.length - 2];
+	      p1 = points[points.length - 1];
+	      context.quadraticCurveTo(p0.x, p0.y, p1.x, p1.y);
+	    }
+	  }]);
+
+	  return CanvasUtils;
+	}();
+
+	exports.default = CanvasUtils;
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getDOM = getDOM;
+	exports._log = _log;
+	exports.getDigits = getDigits;
+	exports.getUrlVars = getUrlVars;
+	exports.mb_strwidth = mb_strwidth;
+	exports.getUnixTime = getUnixTime;
+	exports.scrollDirection = scrollDirection;
+	exports.addClass = addClass;
+	exports.removeClass = removeClass;
+	exports.hasClass = hasClass;
+	exports.getAttr = getAttr;
+	exports.setAttr = setAttr;
+	exports.getWidth = getWidth;
+	exports.getHeight = getHeight;
+	exports.getScroll = getScroll;
+	exports.requestAnimationFrame = requestAnimationFrame;
+	exports.cancelAnimationFrame = cancelAnimationFrame;
+	exports.heightLine = heightLine;
+	exports.loadJSONP = loadJSONP;
+
+	/**
+	 * DOM取得
+	 * @param [string] name 取得したいDOM
+	 * @return [object] 取得したDOMを返す
+	 */
+	function getDOM(name) {
+	    var el = void 0;
+
+	    if (!name.match(/\s|\[|\]|\,/g)) {
+
+	        if (name.match(/^#/)) {
+	            el = document.getElementById(name.replace(/#/, ''));
+	        } else if (name.match(/^\./)) {
+	            el = document.getElementsByClassName(name.replace(/\./, ''));
+	        } else if (name.match(/\b/)) {
+	            el = document.getElementsByTagName(name);
+	        } else {
+	            el = document.querySelectorAll(name);
+	        }
+	    } else {
+	        el = document.querySelectorAll(name);
+	    }
+
+	    return el;
+	}
+
+	/**
+	 * console
+	 */
+	function _log(arg, self) {
+	    if (true) {
+
+	        if (self) {
+	            console.log(self.constructor.name + ': ' + arg);
+	        } else {
+	            console.log('' + arg);
+	        }
+	        window._DEBUG_TRACE += '\n' + arg;
+	    }
+	}
+
+	/**
+	 * 数値の桁数をチェック
+	 * @param {number} num  チェックしたい数値
+	 * @param {number} base 基数
+	 * @return {number}     桁数を返す
+	 */
+	function getDigits(num) {
+	    var base = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
+
+	    return Math.log(num) / Math.log(base) + 1 | 0;
+	}
+
+	/**
+	 * GET値の取得
+	 * @return {object} GET値をオブジェクト型で返す
+	 */
+	function getUrlVars() {
+	    var i = void 0,
+	        key = void 0,
+	        keySearch = void 0,
+	        param = void 0,
+	        val = void 0,
+	        vars = void 0;
+
+	    vars = {};
+	    param = location.search.substring(1).split("&");
+	    i = 0;
+
+	    while (i < param.length) {
+	        keySearch = param[i].search(RegExp("="));
+	        key = "";
+
+	        if (keySearch !== -1) {
+	            key = param[i].slice(0, keySearch);
+	        }
+
+	        val = param[i].slice(param[i].indexOf("=", 0) + 1);
+
+	        if (key !== "") {
+	            vars[key] = decodeURI(val);
+	        }
+	        i++;
+	    }
+
+	    return vars;
+	}
+
+	/**
+	 * 指定した文字列の幅をかえす
+	 * @param {string} str  調べたい文字列
+	 * @return {number}     幅を返す
+	 */
+	function mb_strwidth(str) {
+	    var listen = void 0;
+
+	    listen = function listen(el, event, handler) {
+	        if (el.addEventListener) {
+	            return el.addEventListener(event, handler);
+	        } else {
+	            return el.attachEvent('on' + event, function () {
+	                return handler.call(el);
+	            });
+	        }
+	    };
+	}
+
+	/**
+	 * UNIXTIME取得
+	 * @return {number} 時間を返す
+	 */
+	function getUnixTime() {
+	    return parseInt(new Date() / 1000);
+	}
+
+	/**
+	 * wheelイベント内で使用し、スクロールした方向を取得
+	 * @return {string} 方向を返す
+	 */
+	function scrollDirection(event) {
+	    var delta = void 0;
+
+	    if (event.deltaY) {
+	        delta = -event.deltaY;
+	    } else if (event.wheelDelta) {
+	        delta = event.wheelDelta;
+	    } else {
+	        delta = -event.detail;
+	    }
+
+	    if (delta < 0) {
+	        return 'down';
+	    } else if (delta > 0) {
+	        return 'up';
+	    }
+	}
+
+	/**
+	 * クラスの追加
+	 * @param {object} el   HTML Element
+	 * @param {string} name 追加したいクラス名
+	 */
+	function addClass(el, name) {
+	    var src = void 0;
+	    src = ' ' + el.className.replace(/[\t\r\n\f]/g, ' ') + ' ';
+	    if (src.indexOf(' ' + name + ' ') >= 0) {
+	        return false;
+	    }
+	    el.className += ' ' + name;
+	    return true;
+	}
+
+	/**
+	 * クラスの削除
+	 * @param {object} el   HTML Element
+	 * @param {string} name 削除したいクラス名
+	 */
+	function removeClass(el, name) {
+	    var dst = void 0,
+	        src = void 0;
+	    src = ' ' + el.className.replace(/[\t\r\n\f]/g, ' ') + ' ';
+	    dst = src.replace(' ' + name + ' ', ' ');
+	    el.className = dst.replace(/^\s+/, '').replace(/\s+$/, '');
+	    return src !== dst;
+	}
+
+	/**
+	 * クラスの存在判定
+	 * @param {object} el   HTML Element
+	 * @param {string} name 判定したいクラス名
+	 * @return {boolean}    クラスが存在するかを返す
+	 */
+	function hasClass(el, name) {
+	    var className = void 0,
+	        l = void 0;
+	    className = ' ' + name + ' ';
+	    l = el.length;
+	    if ((' ' + el.className + ' ').replace(/[\t\r\n\f]/g, ' ').indexOf(className) >= 0) {
+	        return true;
+	    }
+	    return false;
+	}
+
+	/**
+	 * 属性の取得
+	 * @param {object} el   HTML Element
+	 * @param {string} attr 取得したい属性の名前
+	 * @return {string}     取得する属性の値を返す
+	 */
+	function getAttr(el, attr) {
+	    return el.getAttribute(attr);
+	}
+
+	/**
+	 * 属性の設定
+	 * @param {object} el   HTML Element
+	 * @param {string} attr 設定したい属性の名前
+	 * @param {string} val  設定したい属性のプロパティ名
+	 */
+	function setAttr(el, attr, val) {
+	    el.setAttribute(attr, val);
+	}
+
+	/**
+	 * 要素の横幅の取得
+	 * @param [object]  el  DOM要素
+	 * @return [number] 横幅を返す
+	 */
+	function getWidth(el) {
+	    var width = void 0;
+
+	    if (el === window || el === document) {
+	        width = document.documentElement.clientWidth || window.innerWidth;
+	    } else {
+	        width = el.style.width;
+	    }
+
+	    return parseInt(width);
+	}
+
+	/**
+	 * 要素の高さの取得
+	 * @param [object]  el  DOM要素
+	 * @return [number] 高さを返す
+	 */
+	function getHeight(el) {
+	    var height = void 0;
+
+	    if (el === window || el === document) {
+	        height = document.documentElement.clientHeight || window.innerHeight;
+	    } else {
+	        height = el.clientHeight;
+	    }
+
+	    return parseInt(height);
+	}
+
+	function getScroll() {
+	    return {
+	        top: document.documentElement.scrollTop || document.body.scrollTop,
+	        left: document.documentElement.scrollLeft || document.body.scrollLeft
+	    };
+	}
+
+	/**
+	 *
+	 */
+	function requestAnimationFrame() {
+	    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+	    window.requestAnimationFrame = requestAnimationFrame;
+	}
+
+	/**
+	 *
+	 */
+	function cancelAnimationFrame() {
+	    var cancelAnimationFrame = window.cancelAnimationFrame || window.mozcancelAnimationFrame || window.webkitcancelAnimationFrame || window.mscancelAnimationFrame;
+	    window.cancelAnimationFrame = cancelAnimationFrame;
+	}
+
+	/**
+	 * 要素の高さをそろえる
+	 * @param [object]  el  DOM要素
+	 */
+	function heightLine(el) {
+	    var array = void 0,
+	        height = void 0,
+	        i = void 0,
+	        len = void 0;
+
+	    array = [];
+	    i = 0;
+	    len = el.length;
+
+	    for (; i < len; i++) {
+	        array.push(getHeight(el[i]));
+	    }
+	    height = Math.max.apply(null, array);
+	    i = 0;
+
+	    for (; i < len; i++) {
+	        el[i].style.height = height + 'px';
+	    }
+	}
+
+	/**
+	 * jsonpを読む
+	 * @param [object]  
+	 */
+
+	function loadJSONP(url, callback, context) {
+	    // INIT
+	    var unique = 0;
+	    var name = "_jsonp_" + unique++;
+	    if (url.match(/\?/)) url += "&callback=" + name;else url += "?callback=" + name;
+	    // Create script
+	    var script = document.createElement('script');
+	    script.type = 'text/javascript';
+	    script.src = url;
+	    // Setup handler
+	    window[name] = function (data) {
+	        callback.call(context || window, data);
+	        document.getElementsByTagName('head')[0].removeChild(script);
+	        script = null;
+	        delete window[name];
+	    };
+	    // Load JSON
+	    document.getElementsByTagName('head')[0].appendChild(script);
+	};
+
+/***/ },
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 
 
-	var ____Class19=React.Component;for(var ____Class19____Key in ____Class19){if(____Class19.hasOwnProperty(____Class19____Key)){About[____Class19____Key]=____Class19[____Class19____Key];}}var ____SuperProtoOf____Class19=____Class19===null?null:____Class19.prototype;About.prototype=Object.create(____SuperProtoOf____Class19);About.prototype.constructor=About;About.__superConstructor__=____Class19;function About(){"use strict";if(____Class19!==null){____Class19.apply(this,arguments);}}
+	var ____Classhz=React.Component;for(var ____Classhz____Key in ____Classhz){if(____Classhz.hasOwnProperty(____Classhz____Key)){About[____Classhz____Key]=____Classhz[____Classhz____Key];}}var ____SuperProtoOf____Classhz=____Classhz===null?null:____Classhz.prototype;About.prototype=Object.create(____SuperProtoOf____Classhz);About.prototype.constructor=About;About.__superConstructor__=____Classhz;function About(){"use strict";if(____Classhz!==null){____Classhz.apply(this,arguments);}}
 	    Object.defineProperty(About.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-about"}, 
@@ -25733,13 +26084,13 @@
 
 
 /***/ },
-/* 205 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 
 
-	var ____Class1b=React.Component;for(var ____Class1b____Key in ____Class1b){if(____Class1b.hasOwnProperty(____Class1b____Key)){Concept[____Class1b____Key]=____Class1b[____Class1b____Key];}}var ____SuperProtoOf____Class1b=____Class1b===null?null:____Class1b.prototype;Concept.prototype=Object.create(____SuperProtoOf____Class1b);Concept.prototype.constructor=Concept;Concept.__superConstructor__=____Class1b;function Concept(){"use strict";if(____Class1b!==null){____Class1b.apply(this,arguments);}}
+	var ____Classhy=React.Component;for(var ____Classhy____Key in ____Classhy){if(____Classhy.hasOwnProperty(____Classhy____Key)){Concept[____Classhy____Key]=____Classhy[____Classhy____Key];}}var ____SuperProtoOf____Classhy=____Classhy===null?null:____Classhy.prototype;Concept.prototype=Object.create(____SuperProtoOf____Classhy);Concept.prototype.constructor=Concept;Concept.__superConstructor__=____Classhy;function Concept(){"use strict";if(____Classhy!==null){____Classhy.apply(this,arguments);}}
 	    Object.defineProperty(Concept.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-concept"}, 
@@ -25753,13 +26104,13 @@
 
 
 /***/ },
-/* 206 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 
 
-	var ____Class1a=React.Component;for(var ____Class1a____Key in ____Class1a){if(____Class1a.hasOwnProperty(____Class1a____Key)){Item[____Class1a____Key]=____Class1a[____Class1a____Key];}}var ____SuperProtoOf____Class1a=____Class1a===null?null:____Class1a.prototype;Item.prototype=Object.create(____SuperProtoOf____Class1a);Item.prototype.constructor=Item;Item.__superConstructor__=____Class1a;function Item(){"use strict";if(____Class1a!==null){____Class1a.apply(this,arguments);}}
+	var ____ClasshA=React.Component;for(var ____ClasshA____Key in ____ClasshA){if(____ClasshA.hasOwnProperty(____ClasshA____Key)){Item[____ClasshA____Key]=____ClasshA[____ClasshA____Key];}}var ____SuperProtoOf____ClasshA=____ClasshA===null?null:____ClasshA.prototype;Item.prototype=Object.create(____SuperProtoOf____ClasshA);Item.prototype.constructor=Item;Item.__superConstructor__=____ClasshA;function Item(){"use strict";if(____ClasshA!==null){____ClasshA.apply(this,arguments);}}
 	    Object.defineProperty(Item.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement("div", {className: "page-item"}, 
@@ -25773,17 +26124,17 @@
 
 
 /***/ },
-/* 207 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 
 
-	var ____Class1c=React.Component;for(var ____Class1c____Key in ____Class1c){if(____Class1c.hasOwnProperty(____Class1c____Key)){News[____Class1c____Key]=____Class1c[____Class1c____Key];}}var ____SuperProtoOf____Class1c=____Class1c===null?null:____Class1c.prototype;News.prototype=Object.create(____SuperProtoOf____Class1c);News.prototype.constructor=News;News.__superConstructor__=____Class1c;function News(){"use strict";if(____Class1c!==null){____Class1c.apply(this,arguments);}}
+	var ____ClasshB=React.Component;for(var ____ClasshB____Key in ____ClasshB){if(____ClasshB.hasOwnProperty(____ClasshB____Key)){News[____ClasshB____Key]=____ClasshB[____ClasshB____Key];}}var ____SuperProtoOf____ClasshB=____ClasshB===null?null:____ClasshB.prototype;News.prototype=Object.create(____SuperProtoOf____ClasshB);News.prototype.constructor=News;News.__superConstructor__=____ClasshB;function News(){"use strict";if(____ClasshB!==null){____ClasshB.apply(this,arguments);}}
 	    Object.defineProperty(News.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
-	            React.createElement("div", {className: "page-news"}, 
-	                React.createElement("p", null, "news")
+	            React.createElement("div", {className: "page-contact"}, 
+	                React.createElement("p", null, "contact")
 	            )
 	        );
 	    }});
@@ -25793,14 +26144,14 @@
 
 
 /***/ },
-/* 208 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Router = __webpack_require__(157);
 	var $__0=       Router,State=$__0.State,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,NotFoundRoute=$__0.NotFoundRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
 
-	var ____Class1d=React.Component;for(var ____Class1d____Key in ____Class1d){if(____Class1d.hasOwnProperty(____Class1d____Key)){LangRoot[____Class1d____Key]=____Class1d[____Class1d____Key];}}var ____SuperProtoOf____Class1d=____Class1d===null?null:____Class1d.prototype;LangRoot.prototype=Object.create(____SuperProtoOf____Class1d);LangRoot.prototype.constructor=LangRoot;LangRoot.__superConstructor__=____Class1d;function LangRoot(){"use strict";if(____Class1d!==null){____Class1d.apply(this,arguments);}}
+	var ____ClasshC=React.Component;for(var ____ClasshC____Key in ____ClasshC){if(____ClasshC.hasOwnProperty(____ClasshC____Key)){LangRoot[____ClasshC____Key]=____ClasshC[____ClasshC____Key];}}var ____SuperProtoOf____ClasshC=____ClasshC===null?null:____ClasshC.prototype;LangRoot.prototype=Object.create(____SuperProtoOf____ClasshC);LangRoot.prototype.constructor=LangRoot;LangRoot.__superConstructor__=____ClasshC;function LangRoot(){"use strict";if(____ClasshC!==null){____ClasshC.apply(this,arguments);}}
 	    Object.defineProperty(LangRoot.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement(RouteHandler, null)

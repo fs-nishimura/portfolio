@@ -7,8 +7,10 @@ var About = require('./components/About');
 var Works = require('./components/Works');
 var Articles = require('./components/Articles');
 var Contact = require('./components/Contact');
-
 var LangRoot = require('./components/LangRoot');
+
+// import CanvasUtils from './components/canvasUtils';
+
 
 var routes = (
     <Route path="/" name="app" handler={App}>
