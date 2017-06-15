@@ -7,18 +7,18 @@ var CanvasUtils_ = new CanvasUtils();
 
 
 class Top extends React.Component {
-    render() {
-        return (
-            <div className="page-home page">
-            <div id="targ">
-            </div>
-            <canvas id="canvas"></canvas>
-            </div>
-        );
-    }
-    componentDidMount() {
-      drawCanvas();
-    }
+  render() {
+    return (
+      <div className="page-home page">
+      <div id="targ">
+      </div>
+      <canvas id="canvas"></canvas>
+      </div>
+    );
+  }
+  componentDidMount() {
+    drawCanvas();
+  }
 }
 
 
@@ -41,41 +41,41 @@ function drawCanvas(){
     };
   }
 
-const TRENDSJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=20&jsonp=JSONPCallback";
-const TRENDSUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=20&jsonp=JSONPCallback";
-var FONTFAMILYARR=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
-var trends=[];
-loadJSONP(
-  TRENDSJA,
-  function(data) {
-    var htmlStr="";
-    data.responseData.feed.entries.map((entry) => {
-    trends.push(entry.title);
-    }) 
-    
-    for(var i = 0; i < numShapes; i += 1) {
-      shapes[i] = {
-      x:CanvasUtils_.randomRange(-6000,6000),
-      y:CanvasUtils_.randomRange(-6000,6000),
-      z:CanvasUtils_.randomRange(0,6000),
-      Pradius : Math.random()*20,
-      txt:trends[current%trends.length],
-      fontfamily:FONTFAMILYARR[current%FONTFAMILYARR.length],
-      size:Math.random() * 150
-      };
-      current++;
-    }
+  const TRENDSJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=20&jsonp=JSONPCallback";
+  const TRENDSUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=20&jsonp=JSONPCallback";
+  var FONTFAMILYARR=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
+  var trends=[];
+  loadJSONP(
+    TRENDSJA,
+    function(data) {
+      var htmlStr="";
+      data.responseData.feed.entries.map((entry) => {
+        trends.push(entry.title);
+      })
+
+      for(var i = 0; i < numShapes; i += 1) {
+        shapes[i] = {
+          x:CanvasUtils_.randomRange(-6000,6000),
+          y:CanvasUtils_.randomRange(-6000,6000),
+          z:CanvasUtils_.randomRange(0,6000),
+          Pradius : Math.random()*20,
+          txt:trends[current%trends.length],
+          fontfamily:FONTFAMILYARR[current%FONTFAMILYARR.length],
+          size:Math.random() * 150
+        };
+        current++;
+      }
       context.translate(width / 2, height / 2);
       update();
-  }
-)
+    }
+  )
 
   function update() {
 
-   context.clearRect(-width / 2, -height / 2, width, height);
+    context.clearRect(-width / 2, -height / 2, width, height);
     for(var i = 0; i < numShapes; i += 1) {
       var shape = shapes[i],
-        perspective = fl / (fl + shape.z);
+      perspective = fl / (fl + shape.z);
 
       context.save();
       context.translate(shape.x * perspective, shape.y * perspective);
@@ -104,9 +104,9 @@ loadJSONP(
         shape.z = CanvasUtils_.randomRange(5000,10000);
       }
     }
-    requestAnimationFrame(update); 
+    requestAnimationFrame(update);
   }
 }
-   
+
 
 module.exports = Top;

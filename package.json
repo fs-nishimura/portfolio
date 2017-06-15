@@ -1,6 +1,6 @@
 {
-  "name": "negic",
-  "version": "3.8.11",
+  "name": "namplate",
+  "version": "3.9.0",
   "description": "test",
   "main": "index.js",
   "scripts": {
@@ -9,27 +9,18 @@
   "author": "",
   "license": "",
   "devDependencies": {
-    "babel": {
-      "presets": [
-        "es2015"
-      ]
-    },
-    "babel-loader": "",
-    "babel-preset-es2015": "^6.18.0",
+    "babel-core": "^6.14.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
     "browser-sync": "",
     "es6-loader": "^0.2.0",
-    "google-trends-api": "",
     "gulp": "",
     "gulp-autoprefixer": "",
+    "gulp-babel": "^6.1.2",
     "gulp-changed": "",
     "gulp-clean": "",
     "gulp-combine-media-queries": "",
-    "gulp-compass": "",
     "gulp-csscomb": "",
-    "gulp-ftp": "",
-    "gulp-if": "",
-    "gulp-imagemin": "",
-    "gulp-jade": "",
     "gulp-load-plugins": "",
     "gulp-minify-css": "",
     "gulp-minify-html": "",
@@ -41,7 +32,6 @@
     "gulp-watch": "",
     "gulp-webpack": "",
     "jsx-loader": "",
-    "net": "",
     "react": "~0.13.3",
     "react-router": "~0.13.3",
     "request": "",
@@ -49,5 +39,11 @@
     "run-sequence": "",
     "underscore": "",
     "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "babel-register": "^6.24.1"
+  },
+  "scripts": {
+    "build": "gulp"
   }
 }

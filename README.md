@@ -1,14 +1,9 @@
 # namplate
 
 
-## 
+##
 portfolio site ideas
-- Canvas x React x Google trendsでマトリックス風
-- Google trendsじゃなくて私のブログ記事からワードを取得してランダムに表示するのでいいかも
-
-
-
-
+- http://www.alquimiawrg.com/#/home
 
 
 ## Feature
@@ -63,7 +58,7 @@ nvm use xxx
 以下のコマンドを実行するとブラウザで開発中のページが開きます。この状態でCSSやJSを修正するとユニットテストやLintも同時に実行され、ブラウザが自動的に更新されます。
 
 ```
-# ディレクトリを監視(src) 
+# ディレクトリを監視(src)
 本番用ソース生成
 ```
 gulp release

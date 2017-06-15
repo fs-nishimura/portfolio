@@ -9,7 +9,7 @@ var Articles = require('./components/Articles');
 var Contact = require('./components/Contact');
 var LangRoot = require('./components/LangRoot');
 
-// import CanvasUtils from './components/canvasUtils';
+var CanvasUtils = require( './components/canvasUtils');
 
 
 var routes = (

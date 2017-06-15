@@ -13,13 +13,9 @@
 
 @charset "utf-8";
 
-// Compassのモジュールを使う
-// @import "compass/css3";
-// @import "compass/typography";
-// @import "compass/utilities";
 
 // 主にここに書く
+@import "settings";
 @import "reset";
 @import "base";
 @import "main";
-
