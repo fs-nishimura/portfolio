@@ -4,27 +4,17 @@
 module.exports = {
 
     menu: [
-        { name: 'ABOUT', path: '/about/' },
         { name: 'WORKS', path: '/works/' },
-        { name: 'ARTICLES', path: '/articles/' },
+        { name: 'PROFILE', path: '/about/' },
         { name: 'CONTACT', path: '/contact/' }
     ],
-
-    movieList: [
-        {
-            title: '',
-            cover: '',
-            youtube_id: '',
-            description: '',
-            location_data: [
-                {
-                    title: '',
-                    description: '',
-                    lat: '00.00000000',
-                    lng: '00.00000000'
-                }
-            ]
-        }
-    ]
-
+    canvas:null,
+    canvasContext:null,
+    fps:200,
+    fl : 500,
+    winW : 0,
+    winH : 0,
+    scroll : 0,
+    numShapes : 300,
+    shapes : []
 };

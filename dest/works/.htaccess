@@ -1,0 +1,6 @@
+AuthUserFile /opt/bitnami/apache2/htdocs/works/.htpasswd
+AuthName "Enter ID and Password. Send your inquiry on Contact page if you don't have one."
+AuthGroupfile /dev/null
+AuthName "Please enter your ID and password"
+AuthType Basic
+require valid-user

@@ -1,31 +1,321 @@
 @charset "utf-8";
+
 /* =============================================
- @header
+@common
+============================================= */
+// body{
+//   overflow-y: hidden;
+// }
+// #wrapAll{
+//   overflow-y: hidden;
+//   height: 100vh;
+// }
+//
+// .contents{
+//   overflow-y: scroll;
+// }
+
+/* =============================================
+@header
 ============================================= */
 header {
-    min-width: 1200px;
-    width: 100%;
-    @include fixed(0,auto,auto,0);
-    z-index: 9999;
-    background-color: transparent;
+  width: 100%;
+  margin-bottom: 30vh;
+  background-color: transparent;
+  .h-inner{
+    text-align: left;
+    li{
+      position: relative;
+      line-height: 0;
+      font-size:0;
+      margin-bottom: 3.5rem;
+      &:first-child{
+        span:after{
+          background: #000046;
+          background: linear-gradient(to right, #000046, #1cb5e0);
+        }
+      }
+      &:nth-child(2) span:after{
+        background: #EB5757;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #000000, #EB5757);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #000000, #EB5757); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      }
+      &:nth-child(3) span:after{
+        background: #EDE574;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #E1F5C4, #EDE574);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #E1F5C4, #EDE574); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      }
+      &:after{
+        content: "";
+        display: block;
+        position: absolute;
+        top:50%;
+        left:0;
+        z-index:0;
+        height: 1px;
+        width: 100%;
+        background: #fcfcfc;
+      }
+    }
+    a{
+      display: block;
+      position: relative;
+      z-index:2;
+      line-height: 0;
+      &:hover{
+        opacity: 1;
+        span:after{
+          right: calc(-50vw + 100%);
+        }
+      }
+      span{
+        font-size: 4rem;
+        letter-spacing: 0.356em;
+        line-height: 1;
+        padding-right:3rem;
+        font-family: $vollkorn;
+        background: #000;
+        display: inline-block;
+        position: relative;
+        @include media(sp){
+          font-size: 2.5rem;
+        }
+        &:after{
+          content:"";
+          display: block;
+          position: absolute;
+          top:50%;
+          right: 0;
+          width: 10px;
+          transition: right 1.5s cubic-bezier(0.230, 1.000, 0.320, 1.000);
+          height: 10px;
+          margin-top: -5px;
+          border-radius: 50%;
+          background-color: #fcfcfc;
+        }
+      }
+
+    }
+  }
+}
+
+.logo{
+  text-align: center;
+  font-size:0;
+  a{
+    display: block;
+    font-size:5rem;
+    margin-bottom: 8rem;
+    font-family: $vollkorn;
+    margin-top:20vh;
+    letter-spacing: 0.1em;
+    line-height: 0;
+    @include media(sp){
+      font-size: 3rem;
+    }
+  }
+  .dot{
+    line-height: 0;
+    width: 10px;
+    font-size:0;
+    height: 10px;
+    margin:0 0.8rem 0 0.5rem;
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    &:after{
+      content:"";
+      position: absolute;
+      border-radius: 50%;
+      top:0;
+      left:0;
+      display: block;
+      width:100%;
+      height: 100%;
+      background: #c02425;
+      background: linear-gradient(to right, #c02425, #f0cb35);
+    }
+  }
+}
+
+/* =============================================
+@top
+============================================= */
+.container{
+  position: relative;
+  z-index:1;
+  background-color: transparent;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  @include media(sp){
+    width: 80%;
+  }
+}
+
+#canvas{
+  pointer-events: none;
+  position: fixed;
+  opacity: 0;
+  transition: 4s opacity ease-out;
+  top:0;
+  left:0;
+  z-index: 10;
+  width:100vw;
+  height:100vh;
+  .load &{
+    opacity:1;
+  }
+}
+
+.page-home{
+  margin-bottom: 16rem;
+  .social{
+    text-align: center;
+    margin-top: 5rem;
+    li{
+      padding:0 1rem;
+      display: inline-block;
+      a:hover{
+        transition: none;
+        opacity: 1;
+        img{
+          fill:#c02425;
+          fill:linear-gradient(to right, #c02425, #f0cb35);
+        }
+      }
+    }
+  }
+
+  p{
+    font-size:1.5rem;
+    line-height: 2;
+    letter-spacing: .25em;
+    font-weight: bold;
+  }
 }
 
 
 /* =============================================
- @btn
+@ribbon
 ============================================= */
-.btn_scroll{
 
+.ribbonbox {
+  width: 200px; height: 300px;
+  position: relative;
+  border: 1px solid #BBB;
+  background: #EEE;
+}
+.ribbon {
+  position: fixed;
+  right: -5px; top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px; height: 75px;
+  text-align: right;
+}
+.ribbon span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  width: 100px;
+  display: block;
+  background: #79A70A;
+  background: linear-gradient(#2989d8 0%, #1e5799 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px; right: -21px;
+}
+.ribbon span::before {
+  content: "";
+  position: absolute; left: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid #1e5799;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #1e5799;
+}
+.ribbon span::after {
+  content: "";
+  position: absolute; right: 0px; top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #1e5799;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #1e5799;
 }
 
-/**
- * @home
- * -----------------------------------------------------------------------------
- */
-// #canvas{
-//     margin-top: -73px;
-// }
-/**
- * @Inspiration
- * -----------------------------------------------------------------------------
- */
+/* =============================================
+@about
+============================================= */
+.page-about{
+  margin-bottom: 16rem;
+  figure{
+    text-align: center;
+  }
+  figcaption{
+    font-size:1.5rem;
+    font-weight: bold;
+    margin-bottom: 5rem;
+  }
+  img{
+    max-width: 100%;
+    width: 300px;
+    padding-bottom: 1rem;
+  }
+
+  .proftext{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+    text-align: left;
+  }
+  h2{
+    font-size:3rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    font-weight: bold;
+  }
+}
+
+.history{
+  text-align: left;
+  margin-bottom: 2rem;
+  time,span{
+    font-size:1.5rem;
+  }
+  h3,h3 a{
+    font-size:1.5rem;
+    letter-spacing: 0.05em;
+    text-align: left;
+    font-weight: bold;
+  }
+}
+
+
+/* =============================================
+@works
+============================================= */
+.page-works{
+  margin-bottom: 16rem;
+  h2{
+    font-size:3rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-weight: bold;
+  }
+  img{
+    max-width: 100%;
+    padding-bottom: 8rem;
+  }
+}

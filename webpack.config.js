@@ -70,7 +70,7 @@ module.exports = {
                 { test: /\.jsx/, loader: 'jsx-loader?harmony' }
             ]
         },
-        
+
         resolve: {
             root: [path.join(__dirname, 'bower_components')],
             moduleDirectories: ['bower_components'],
@@ -78,7 +78,9 @@ module.exports = {
         },
 
         plugins: [
-            new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
+          new webpack.ResolverPlugin(
+          new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+      ),
 
             new webpack.DefinePlugin({
                 DEBUG: config.develop.debug

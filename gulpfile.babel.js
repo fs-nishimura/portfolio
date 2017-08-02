@@ -1,4 +1,5 @@
-require('babel-register');
+require( 'babel-register' ); // 追記
+
 import gulp from 'gulp';
 
 /**
@@ -47,7 +48,7 @@ gulp.task('sass', () => {
             outputStyle: 'compressed',
             errLogToConsole: true
         }))
-        .pipe($.autoprefixer('last 2 version'))
+        .pipe($.autoprefixer('last 5 version'))
         .pipe($.combineMediaQueries({ log: false }))
         .pipe($.csscomb())
         .pipe(gulp.dest(dst.css));
@@ -99,7 +100,6 @@ gulp.task('copy', () => {
  */
 gulp.task('release', () => {
     log('release file');
-
     runSequence( 'jsmin', 'cssmin', 'imagemin', 'copy');
 });
 
@@ -121,12 +121,12 @@ gulp.task('watch', () => {
     });
 
     gulp.watch(`${dev.sass}/**/*`, () => {
-        log('file change');
+        log('sass change');
         gulp.run('sass');
     });
 
     gulp.watch(`${dst.root}/**/*`, () => {
-        browserSync.reload();   // ファイルに変更があれば同期しているブラウザをリロード
+        browserSync.reload();
     });
 
 });
@@ -134,4 +134,5 @@ gulp.task('watch', () => {
 
 gulp.task('r', [ 'release' ]);
 gulp.task('d', [ 'deploy' ]);
-gulp.task('default', [ 'watch', 'browsersync' ]);
+gulp.task('default', [ 'watch','browsersync']);
+gulp.task('s', [ 'browsersync']);

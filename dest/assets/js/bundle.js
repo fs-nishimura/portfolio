@@ -47,44 +47,55 @@
 	var React = __webpack_require__(1);
 	var Router = __webpack_require__(157);
 	var $__0=      Router,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,NotFoundRoute=$__0.NotFoundRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
-	var App = __webpack_require__(199);
-	var Top = __webpack_require__(203);
-	var About = __webpack_require__(206);
-	var Works = __webpack_require__(207);
-	var Articles = __webpack_require__(208);
-	var Contact = __webpack_require__(209);
-	var LangRoot = __webpack_require__(210);
-
-	var CanvasUtils = __webpack_require__( 211);
-
-
+	var Data = __webpack_require__(199);
+	var App = __webpack_require__(200);
+	var Top = __webpack_require__(204);
+	var About = __webpack_require__(205);
+	var Works = __webpack_require__(206);
+	var Articles = __webpack_require__(207);
+	var Contact = __webpack_require__(208);
+	var LangRoot = __webpack_require__(209);
 	var routes = (
-	    React.createElement(Route, {path: "/", name: "app", handler: App}, 
-	        React.createElement(DefaultRoute, {handler: Top}), 
-	        React.createElement(Route, {path: "about/", handler: About}), 
-	        React.createElement(Route, {path: "works/", handler: Works}), 
-	        React.createElement(Route, {path: "articles/", handler: Articles}), 
-	        React.createElement(Route, {path: "contact/", handler: Contact})
-	    )
+	  React.createElement(Route, {path: "/", name: "app", handler: App},
+	    React.createElement(DefaultRoute, {handler: Top}),
+	    React.createElement(Route, {path: "about/", handler: About}),
+	    React.createElement(Route, {path: "works/", handler: Works}),
+	    "// ", React.createElement(Route, {path: "contact/", handler: Contact})
+	  )
 	);
+
+
+	Data.winW = window.innerWidth;
+	Data.winH = window.innerHeight;
 
 
 	Router.run(routes, Router.HistoryLocation, function(Handler, state)  {
 
-	    var context = {};
+	  var context = {};
 
-	    if (state.pathname.indexOf('/en/') === 0) {
-	        context.lang = 'en';
-	        context.langPrefix = '/en';
-	    } else {
-	        context.lang = 'ja';
-	        context.langPrefix = '';
-	    }
-
-	    React.withContext(context, function()  {
-	        React.render(React.createElement(Handler, null), document.body);
-	    });
+	  if (state.pathname.indexOf('/en/') === 0) {
+	    context.lang = 'en';
+	    context.langPrefix = '/en';
+	  } else {
+	    context.lang = 'ja';
+	    context.langPrefix = '';
+	  }
+	  React.withContext(context, function()  {
+	    React.render(React.createElement(Handler, {pathname: state.pathname}), document.body);
+	  });
 	});
+
+
+	var resizeTimer;
+	window.addEventListener("resize",function(){
+	  if (resizeTimer !== false) {
+	    clearTimeout(resizeTimer);
+	  }
+	  resizeTimer = setTimeout(function() {
+	    Data.winW = window.innerWidth;
+	    Data.winH = window.innerHeight;
+	  }, Data.fps);
+	})
 
 
 /***/ }),
@@ -4214,7 +4225,7 @@
 	      var error;
 	      // Prop type validation may throw. In case they do, we don't want to
 	      // fail the render phase where it didn't fail before. So we log it.
-	      // After these have been cleaned up, we'll let them throw.
+	      // After these have been cleaned up, we'll var them throw.
 	      try {
 	        // This is intentionally an invariant that gets caught. It's the same
 	        // behavior as without this statement except with a better message.
@@ -21829,7 +21840,7 @@
 	 *       <Route name="about" handler={About}/>
 	 *     </Route>
 	 *   ];
-	 *   
+	 *
 	 *   Router.run(routes, function (Handler) {
 	 *     React.render(<Handler/>, document.body);
 	 *   });
@@ -23764,9 +23775,9 @@
 	 *   Router.run(routes, function (Handler) {
 	 *     React.render(<Handler/>, document.body);
 	 *   });
-	 * 
+	 *
 	 * Using HTML5 history and a custom "cursor" prop:
-	 * 
+	 *
 	 *   Router.run(routes, Router.HistoryLocation, function (Handler) {
 	 *     React.render(<Handler cursor={cursor}/>, document.body);
 	 *   });
@@ -23802,70 +23813,174 @@
 
 /***/ }),
 /* 199 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var Router = __webpack_require__(157);
-	var $__0=       Router,State=$__0.State,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,NotFoundRoute=$__0.NotFoundRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
-
-	var Header = __webpack_require__(200);
+/***/ (function(module, exports) {
 
 
-	var ____ClassM=React.Component;for(var ____ClassM____Key in ____ClassM){if(____ClassM.hasOwnProperty(____ClassM____Key)){App[____ClassM____Key]=____ClassM[____ClassM____Key];}}var ____SuperProtoOf____ClassM=____ClassM===null?null:____ClassM.prototype;App.prototype=Object.create(____SuperProtoOf____ClassM);App.prototype.constructor=App;App.__superConstructor__=____ClassM;function App(){"use strict";if(____ClassM!==null){____ClassM.apply(this,arguments);}}
-	    Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	        return (
-	            React.createElement("div", {id: "wrapAll"}, 
-	                React.createElement(Header, null), 
-	                React.createElement(RouteHandler, null)
-	            )
-	        );
-	    }});
+	"use strict";
 
+	module.exports = {
 
-	// App.childContextTypes = {
-	//     lang: React.PropTypes.string,
-	//     langPrefix: React.PropTypes.string
-	// }
-
-	module.exports = App;
-
+	    menu: [{ name: 'WORKS', path: '/works/' }, { name: 'PROFILE', path: '/about/' }, { name: 'CONTACT', path: '/contact/' }],
+	    canvas: null,
+	    canvasContext: null,
+	    fps: 200,
+	    fl: 500,
+	    winW: 0,
+	    winH: 0,
+	    scroll: 0,
+	    numShapes: 300,
+	    shapes: []
+	};
 
 /***/ }),
 /* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	const React = __webpack_require__(1);
-	const Router = __webpack_require__(157);
-	const $__0=  Router,Link=$__0.Link;
-	const _ = __webpack_require__(201);
+	var React = __webpack_require__(1);
+	var Router = __webpack_require__(157);
+	var $__0=       Router,State=$__0.State,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,NotFoundRoute=$__0.NotFoundRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
+	var Header = __webpack_require__(201);
+	var CanvasUtils = __webpack_require__(203).default;
+	var CanvasUtils_ = new CanvasUtils();
+	var Data = __webpack_require__(199);
 
-	const MenuData = __webpack_require__(202).menu;
 
 
-	var ____ClassT=React.Component;for(var ____ClassT____Key in ____ClassT){if(____ClassT.hasOwnProperty(____ClassT____Key)){Header[____ClassT____Key]=____ClassT[____ClassT____Key];}}var ____SuperProtoOf____ClassT=____ClassT===null?null:____ClassT.prototype;Header.prototype=Object.create(____SuperProtoOf____ClassT);Header.prototype.constructor=Header;Header.__superConstructor__=____ClassT;
+	var ____Class1G=React.Component;for(var ____Class1G____Key in ____Class1G){if(____Class1G.hasOwnProperty(____Class1G____Key)){App[____Class1G____Key]=____Class1G[____Class1G____Key];}}var ____SuperProtoOf____Class1G=____Class1G===null?null:____Class1G.prototype;App.prototype=Object.create(____SuperProtoOf____Class1G);App.prototype.constructor=App;App.__superConstructor__=____Class1G;
+	  function App(props){"use strict";
+	    ____Class1G.call(this,props)
+	  }
+	  Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	    var isTop = this.props.pathname.length==1?true:false;
+	    return (
+	      React.createElement("div", {id: "wrapAll"},
+	        React.createElement("div", {className: "ribbon"}, React.createElement("span", null, "Beta")),
+	        React.createElement("div", {className: "contents"},
+	          React.createElement("h1", {className: "logo"}, React.createElement(Link, {to: "/", key: "/"}, "nnishimura", React.createElement("span", {className: "dot"}, "."), "io")),
+	          React.createElement("div", {className: 'container isTop-' + isTop},
+	            React.createElement(RouteHandler, null),
+	            React.createElement(Header, null)
+	          )
+	        ),
+	        React.createElement("canvas", {id: "canvas"})
+	      )
+	    );
+	  }});
+	  Object.defineProperty(App.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {"use strict";
+	    Data.winW = window.innerWidth;
+	    Data.winH = window.innerHeight;
+	    Data.canvas = document.getElementById("canvas");
+	    Data.canvasContext = Data.canvas.getContext('2d');
+	    drawCanvas();
+	  }});
+
+
+
+	function drawCanvas(){
+	  var canvas = Data.canvas,
+	  context = Data.canvasContext,
+	  current=0,
+	  width = canvas.width = Data.winW,
+	  height = canvas.height = Data.winH;
+
+	  for (var i = 0; i < Data.numShapes; i++) {
+	    Data.shapes[i] = {
+	      x:CanvasUtils_.randomRange(-8000,8000),
+	      y:CanvasUtils_.randomRange(-8000,8000),
+	      z:CanvasUtils_.randomRange(0,8000),
+	      radius:CanvasUtils_.randomRange(5,30)
+	    };
+	  }
+	  update();
+
+	  function update() {
+	    var width = canvas.width = Data.winW,
+	    height = canvas.height = Data.winH;
+	    context.translate(width / 2, height / 2);
+	    context.clearRect(-width / 2, -height / 2, width, height);
+	    for(var i = 0; i < Data.numShapes; i += 1) {
+	      var shape = Data.shapes[i],
+	      perspective = Data.fl / (Data.fl + shape.z);
+	      context.save();
+	      context.translate(shape.x * perspective, shape.y * perspective);
+	      context.scale(perspective, perspective);
+	      context.beginPath();
+	      context.arc(0, 0, shape.radius, 0, Math.PI * 2, false);
+	      context.fillStyle = '#ffffff';
+	      context.fill();
+	      context.restore();
+	      shape.z -= 10;
+	      if(shape.z < 0) {
+	        shape.z = CanvasUtils_.randomRange(5000,10000);
+	      }
+
+	    }
+
+	    requestAnimationFrame(update);
+	  }
+	}
+
+	window.addEventListener("load",function(){
+	  document.body.className = "load";
+	});
+
+	window.addEventListener("mousemove",function(e){
+	  var ratioX = (Data.winW/2 - e.pageX) * 0.03;
+	  var ratioY = (Data.winH/2 - e.pageY) * 0.01;
+	  var timer;
+
+	  for (var i = 0; i < Data.numShapes; i++) {
+	    var currentX = Data.shapes[i].x;
+	    var index = i;
+
+	    Data.shapes[i].x = Data.shapes[i].x + ratioX;
+	    Data.shapes[i].y = Data.shapes[i].y + ratioY;
+	  }
+	});
+
+
+	module.exports = App;
+
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var Router = __webpack_require__(157);
+	var $__0=  Router,Link=$__0.Link;
+	var _ = __webpack_require__(202);
+	var MenuData = __webpack_require__(199).menu;
+
+
+	var ____Class1N=React.Component;for(var ____Class1N____Key in ____Class1N){if(____Class1N.hasOwnProperty(____Class1N____Key)){Header[____Class1N____Key]=____Class1N[____Class1N____Key];}}var ____SuperProtoOf____Class1N=____Class1N===null?null:____Class1N.prototype;Header.prototype=Object.create(____SuperProtoOf____Class1N);Header.prototype.constructor=Header;Header.__superConstructor__=____Class1N;
 
 	  function Header(props) {"use strict";
-	    ____ClassT.call(this,props)
-
+	    ____Class1N.call(this,props)
 	    this.state = {
 	      items: MenuData.map(function(item)  {return _.clone(item);})
 	    };
 	  }
 
 	  Object.defineProperty(Header.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	    var logo=(
-	      React.createElement("h1", {className: "h-logo"}, React.createElement(Link, {to: "/", key: "/"}, "nnishimura.io"))
-	    );
+
 	    return (
-	      React.createElement("header", {id: "h"}, 
-	      React.createElement("nav", {className: "h-wrap"}, 
-	      logo, 
-	      React.createElement("ul", {className: "h-inner"}, 
+	      React.createElement("header", {id: "header"},
+	      React.createElement("nav", {className: "h-wrap"},
+	      React.createElement("ul", {className: "h-inner"},
 	      this.state.items.map(function(item)  {
 	        var path = item.path;
-	        return (
-	          React.createElement("li", null, React.createElement(Link, {to: path, key: path}, item.name))
-	        );
+	        if(path.indexOf("contact") > -1){
+	          return (React.createElement("li", null, React.createElement("a", {href: "mailto:naoko.nishimura1018@gmail.com", key: 1}, React.createElement("span", null, item.name))))
+	        }else if(path.indexOf("works") > -1){
+	          return (
+	            React.createElement("li", null, React.createElement("a", {href: path, key: 2}, React.createElement("span", null, item.name)))
+	          )
+	        }else{
+	          return (
+	            React.createElement("li", null, React.createElement(Link, {to: path, key: path}, React.createElement("span", null, item.name)))
+	          )
+	        }
 	      })
 	      )
 	      )
@@ -23884,7 +23999,7 @@
 
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -25438,151 +25553,7 @@
 
 
 /***/ }),
-/* 202 */
-/***/ (function(module, exports) {
-
-	
-	"use strict";
-
-	module.exports = {
-
-	    menu: [{ name: 'ABOUT', path: '/about/' }, { name: 'WORKS', path: '/works/' }, { name: 'ARTICLES', path: '/articles/' }, { name: 'CONTACT', path: '/contact/' }],
-
-	    movieList: [{
-	        title: '',
-	        cover: '',
-	        youtube_id: '',
-	        description: '',
-	        location_data: [{
-	            title: '',
-	            description: '',
-	            lat: '00.00000000',
-	            lng: '00.00000000'
-	        }]
-	    }]
-
-	};
-
-/***/ }),
 /* 203 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	//need http://babeljs.io/docs/setup/#webpack
-	var CanvasUtils = __webpack_require__(204).default;
-	var loadJSONP = __webpack_require__(205).loadJSONP;
-	var CanvasUtils_ = new CanvasUtils();
-
-
-
-	var ____ClassN=React.Component;for(var ____ClassN____Key in ____ClassN){if(____ClassN.hasOwnProperty(____ClassN____Key)){Top[____ClassN____Key]=____ClassN[____ClassN____Key];}}var ____SuperProtoOf____ClassN=____ClassN===null?null:____ClassN.prototype;Top.prototype=Object.create(____SuperProtoOf____ClassN);Top.prototype.constructor=Top;Top.__superConstructor__=____ClassN;function Top(){"use strict";if(____ClassN!==null){____ClassN.apply(this,arguments);}}
-	  Object.defineProperty(Top.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	    return (
-	      React.createElement("div", {className: "page-home page"}, 
-	      React.createElement("div", {id: "targ"}
-	      ), 
-	      React.createElement("canvas", {id: "canvas"})
-	      )
-	    );
-	  }});
-	  Object.defineProperty(Top.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {"use strict";
-	    drawCanvas();
-	  }});
-
-
-
-	function drawCanvas(){
-
-	  var canvas = document.getElementById("canvas"),
-	  context = canvas.getContext("2d"),
-	  current=0,
-	  width = canvas.width = window.innerWidth,
-	  height = canvas.height = window.innerHeight,
-	  fl=300,
-	  shapes=[],
-	  numShapes=300;
-
-	  for (var i = 0; i < numShapes; i++) {
-	    shapes[i] = {
-	      x:CanvasUtils_.randomRange(-6000,6000),
-	      y:CanvasUtils_.randomRange(-6000,6000),
-	      z:CanvasUtils_.randomRange(0,6000)
-	    };
-	  }
-
-	  const TRENDSJA = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p4&num=20&jsonp=JSONPCallback";
-	  const TRENDSUS = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.google.com/trends/hottrends/atom/feed?pn=p1&num=20&jsonp=JSONPCallback";
-	  var FONTFAMILYARR=["メイリオ",'ヒラギノ角ゴ ProN W3','游ゴシック','ヒラギノ明朝 Pro W3','游明朝体'];
-	  var trends=[];
-	  loadJSONP(
-	    TRENDSJA,
-	    function(data) {
-	      var htmlStr="";
-	      data.responseData.feed.entries.map(function(entry)  {
-	        trends.push(entry.title);
-	      })
-
-	      for(var i = 0; i < numShapes; i += 1) {
-	        shapes[i] = {
-	          x:CanvasUtils_.randomRange(-6000,6000),
-	          y:CanvasUtils_.randomRange(-6000,6000),
-	          z:CanvasUtils_.randomRange(0,6000),
-	          Pradius : Math.random()*20,
-	          txt:trends[current%trends.length],
-	          fontfamily:FONTFAMILYARR[current%FONTFAMILYARR.length],
-	          size:Math.random() * 150
-	        };
-	        current++;
-	      }
-	      context.translate(width / 2, height / 2);
-	      update();
-	    }
-	  )
-
-	  function update() {
-
-	    context.clearRect(-width / 2, -height / 2, width, height);
-	    for(var i = 0; i < numShapes; i += 1) {
-	      var shape = shapes[i],
-	      perspective = fl / (fl + shape.z);
-
-	      context.save();
-	      context.translate(shape.x * perspective, shape.y * perspective);
-	      context.scale(perspective, perspective);
-	      // square:
-	      context.fillStyle="rgba(0,0,0," + (1-Math.abs(shape.z) / 2000)+")";
-	      // context.arc(0, 0, shape.radius, 0, Math.PI * 2, false);
-	      context.font = "italic bold " + shape.size + "px " + shape.fontfamily;
-	      context.fillText(shape.txt, shape.radius, 65);
-	      // circle:
-	      // context.beginPath();
-	      // context.arc(0, 0, 100, 0, Math.PI * 2, false);
-	      // context.fill();
-
-	      // letter:
-	      context.fillText(shape.txt, -100, -100)
-	      context.restore();
-	      // move away:
-	      // shape.z += 5;
-	      // if(shape.z > 10000) {
-	      //  shape.z = 0;
-	      // }
-	      // move toward:
-	      shape.z -= 10;
-	      if(shape.z < 0) {
-	        shape.z = CanvasUtils_.randomRange(5000,10000);
-	      }
-	    }
-	    requestAnimationFrame(update);
-	  }
-	}
-
-
-	module.exports = Top;
-
-
-/***/ }),
-/* 204 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -25749,343 +25720,78 @@
 	exports.default = CanvasUtils;
 
 /***/ }),
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+
+
+
+	var ____Class1H=React.Component;for(var ____Class1H____Key in ____Class1H){if(____Class1H.hasOwnProperty(____Class1H____Key)){Top[____Class1H____Key]=____Class1H[____Class1H____Key];}}var ____SuperProtoOf____Class1H=____Class1H===null?null:____Class1H.prototype;Top.prototype=Object.create(____SuperProtoOf____Class1H);Top.prototype.constructor=Top;Top.__superConstructor__=____Class1H;function Top(){"use strict";if(____Class1H!==null){____Class1H.apply(this,arguments);}}
+	  Object.defineProperty(Top.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	    return (
+	      React.createElement("div", {className: "page-home page"},
+	      React.createElement("p", null, "Front-end engineer", React.createElement("br", null),
+	      "Web developer", React.createElement("br", null),
+	    "A geek at heart"),
+	      React.createElement("ul", {className: "social"},
+	      React.createElement("li", null, React.createElement("a", {href: "https://github.com/nnishimura", target: "_blank"}, React.createElement("img", {src: "/assets/img/github.svg", alt: "github", width: "30", height: "30"}))),
+	      React.createElement("li", null, React.createElement("a", {href: "https://www.facebook.com/naoko.nishimura1018", target: "_blank"}, React.createElement("img", {src: "/assets/img/fb.svg", alt: "facebook", width: "30", height: "30"}))),
+	      React.createElement("li", null, React.createElement("a", {href: "http://qiita.com/nnishimura", target: "_blank"}, React.createElement("img", {src: "/assets/img/qiita.svg", alt: "Qiita", width: "30", height: "30"})))
+	      )
+	      )
+	    );
+	  }});
+
+
+
+
+
+
+	module.exports = Top;
+
+
+/***/ }),
 /* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	var React = __webpack_require__(1);
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getDOM = getDOM;
-	exports._log = _log;
-	exports.getDigits = getDigits;
-	exports.getUrlVars = getUrlVars;
-	exports.mb_strwidth = mb_strwidth;
-	exports.getUnixTime = getUnixTime;
-	exports.scrollDirection = scrollDirection;
-	exports.addClass = addClass;
-	exports.removeClass = removeClass;
-	exports.hasClass = hasClass;
-	exports.getAttr = getAttr;
-	exports.setAttr = setAttr;
-	exports.getWidth = getWidth;
-	exports.getHeight = getHeight;
-	exports.getScroll = getScroll;
-	exports.requestAnimationFrame = requestAnimationFrame;
-	exports.cancelAnimationFrame = cancelAnimationFrame;
-	exports.heightLine = heightLine;
-	exports.loadJSONP = loadJSONP;
 
-	/**
-	 * DOM取得
-	 * @param [string] name 取得したいDOM
-	 * @return [object] 取得したDOMを返す
-	 */
-	function getDOM(name) {
-	    var el = void 0;
+	var ____Class1I=React.Component;for(var ____Class1I____Key in ____Class1I){if(____Class1I.hasOwnProperty(____Class1I____Key)){About[____Class1I____Key]=____Class1I[____Class1I____Key];}}var ____SuperProtoOf____Class1I=____Class1I===null?null:____Class1I.prototype;About.prototype=Object.create(____SuperProtoOf____Class1I);About.prototype.constructor=About;About.__superConstructor__=____Class1I;function About(){"use strict";if(____Class1I!==null){____Class1I.apply(this,arguments);}}
+	  Object.defineProperty(About.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	    return (
+	      React.createElement("div", {className: "page-about"},
+	        React.createElement("figure", null,
+	          React.createElement("img", {src: "/assets/img/prof.jpg", alt: "Profile Photo"})
+	        ),
+	        React.createElement("p", {className: "proftext"},
+	          "@nnishimura has bounced around a lot: Born in Nara, moved to Hyogo, grew up in Kyoto, and then lived in Hawaii (USA) and Melbourne (Australia).",
+	          React.createElement("br", null), "She hopes to settle in Tokyo eventually. (For now)"
+	        ),
+	        React.createElement("h2", null, "Skills"),
+	        React.createElement("div", {className: "history"},
+	        "- Javascript(Mainly Vue.js, learning React), (S)CSS, PHP(Wordpress, Cake2), (X)HTML(5)", React.createElement("br", null),
+	      "- Some mySQL, Python", React.createElement("br", null), "Best at creating interactive websites with \"pixel perfect\" coding", React.createElement("br", null),
+	    "- Speaks English/Japanese"
+	      ),
+	    React.createElement("h2", null, "Employment"),
+	    React.createElement("div", {className: "history"},
+	      React.createElement("time", null, "May 2015 - June 2017"),
+	      React.createElement("h3", null, "Front-end Engineer – Full Size Image.Inc, Tokyo")
+	    ),
+	    React.createElement("div", {className: "history"},
+	      React.createElement("time", null, "October 2014 – April 2015"),
+	      React.createElement("h3", null, "Freelance Web Developer, Osaka")
+	    )
 
-	    if (!name.match(/\s|\[|\]|\,/g)) {
+	  )
+	);
+	}});
 
-	        if (name.match(/^#/)) {
-	            el = document.getElementById(name.replace(/#/, ''));
-	        } else if (name.match(/^\./)) {
-	            el = document.getElementsByClassName(name.replace(/\./, ''));
-	        } else if (name.match(/\b/)) {
-	            el = document.getElementsByTagName(name);
-	        } else {
-	            el = document.querySelectorAll(name);
-	        }
-	    } else {
-	        el = document.querySelectorAll(name);
-	    }
 
-	    return el;
-	}
+	module.exports = About;
 
-	/**
-	 * console
-	 */
-	function _log(arg, self) {
-	    if (true) {
-
-	        if (self) {
-	            console.log(self.constructor.name + ': ' + arg);
-	        } else {
-	            console.log('' + arg);
-	        }
-	        window._DEBUG_TRACE += '\n' + arg;
-	    }
-	}
-
-	/**
-	 * 数値の桁数をチェック
-	 * @param {number} num  チェックしたい数値
-	 * @param {number} base 基数
-	 * @return {number}     桁数を返す
-	 */
-	function getDigits(num) {
-	    var base = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
-
-	    return Math.log(num) / Math.log(base) + 1 | 0;
-	}
-
-	/**
-	 * GET値の取得
-	 * @return {object} GET値をオブジェクト型で返す
-	 */
-	function getUrlVars() {
-	    var i = void 0,
-	        key = void 0,
-	        keySearch = void 0,
-	        param = void 0,
-	        val = void 0,
-	        vars = void 0;
-
-	    vars = {};
-	    param = location.search.substring(1).split("&");
-	    i = 0;
-
-	    while (i < param.length) {
-	        keySearch = param[i].search(RegExp("="));
-	        key = "";
-
-	        if (keySearch !== -1) {
-	            key = param[i].slice(0, keySearch);
-	        }
-
-	        val = param[i].slice(param[i].indexOf("=", 0) + 1);
-
-	        if (key !== "") {
-	            vars[key] = decodeURI(val);
-	        }
-	        i++;
-	    }
-
-	    return vars;
-	}
-
-	/**
-	 * 指定した文字列の幅をかえす
-	 * @param {string} str  調べたい文字列
-	 * @return {number}     幅を返す
-	 */
-	function mb_strwidth(str) {
-	    var listen = void 0;
-
-	    listen = function listen(el, event, handler) {
-	        if (el.addEventListener) {
-	            return el.addEventListener(event, handler);
-	        } else {
-	            return el.attachEvent('on' + event, function () {
-	                return handler.call(el);
-	            });
-	        }
-	    };
-	}
-
-	/**
-	 * UNIXTIME取得
-	 * @return {number} 時間を返す
-	 */
-	function getUnixTime() {
-	    return parseInt(new Date() / 1000);
-	}
-
-	/**
-	 * wheelイベント内で使用し、スクロールした方向を取得
-	 * @return {string} 方向を返す
-	 */
-	function scrollDirection(event) {
-	    var delta = void 0;
-
-	    if (event.deltaY) {
-	        delta = -event.deltaY;
-	    } else if (event.wheelDelta) {
-	        delta = event.wheelDelta;
-	    } else {
-	        delta = -event.detail;
-	    }
-
-	    if (delta < 0) {
-	        return 'down';
-	    } else if (delta > 0) {
-	        return 'up';
-	    }
-	}
-
-	/**
-	 * クラスの追加
-	 * @param {object} el   HTML Element
-	 * @param {string} name 追加したいクラス名
-	 */
-	function addClass(el, name) {
-	    var src = void 0;
-	    src = ' ' + el.className.replace(/[\t\r\n\f]/g, ' ') + ' ';
-	    if (src.indexOf(' ' + name + ' ') >= 0) {
-	        return false;
-	    }
-	    el.className += ' ' + name;
-	    return true;
-	}
-
-	/**
-	 * クラスの削除
-	 * @param {object} el   HTML Element
-	 * @param {string} name 削除したいクラス名
-	 */
-	function removeClass(el, name) {
-	    var dst = void 0,
-	        src = void 0;
-	    src = ' ' + el.className.replace(/[\t\r\n\f]/g, ' ') + ' ';
-	    dst = src.replace(' ' + name + ' ', ' ');
-	    el.className = dst.replace(/^\s+/, '').replace(/\s+$/, '');
-	    return src !== dst;
-	}
-
-	/**
-	 * クラスの存在判定
-	 * @param {object} el   HTML Element
-	 * @param {string} name 判定したいクラス名
-	 * @return {boolean}    クラスが存在するかを返す
-	 */
-	function hasClass(el, name) {
-	    var className = void 0,
-	        l = void 0;
-	    className = ' ' + name + ' ';
-	    l = el.length;
-	    if ((' ' + el.className + ' ').replace(/[\t\r\n\f]/g, ' ').indexOf(className) >= 0) {
-	        return true;
-	    }
-	    return false;
-	}
-
-	/**
-	 * 属性の取得
-	 * @param {object} el   HTML Element
-	 * @param {string} attr 取得したい属性の名前
-	 * @return {string}     取得する属性の値を返す
-	 */
-	function getAttr(el, attr) {
-	    return el.getAttribute(attr);
-	}
-
-	/**
-	 * 属性の設定
-	 * @param {object} el   HTML Element
-	 * @param {string} attr 設定したい属性の名前
-	 * @param {string} val  設定したい属性のプロパティ名
-	 */
-	function setAttr(el, attr, val) {
-	    el.setAttribute(attr, val);
-	}
-
-	/**
-	 * 要素の横幅の取得
-	 * @param [object]  el  DOM要素
-	 * @return [number] 横幅を返す
-	 */
-	function getWidth(el) {
-	    var width = void 0;
-
-	    if (el === window || el === document) {
-	        width = document.documentElement.clientWidth || window.innerWidth;
-	    } else {
-	        width = el.style.width;
-	    }
-
-	    return parseInt(width);
-	}
-
-	/**
-	 * 要素の高さの取得
-	 * @param [object]  el  DOM要素
-	 * @return [number] 高さを返す
-	 */
-	function getHeight(el) {
-	    var height = void 0;
-
-	    if (el === window || el === document) {
-	        height = document.documentElement.clientHeight || window.innerHeight;
-	    } else {
-	        height = el.clientHeight;
-	    }
-
-	    return parseInt(height);
-	}
-
-	function getScroll() {
-	    return {
-	        top: document.documentElement.scrollTop || document.body.scrollTop,
-	        left: document.documentElement.scrollLeft || document.body.scrollLeft
-	    };
-	}
-
-	/**
-	 *
-	 */
-	function requestAnimationFrame() {
-	    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-	    window.requestAnimationFrame = requestAnimationFrame;
-	}
-
-	/**
-	 *
-	 */
-	function cancelAnimationFrame() {
-	    var cancelAnimationFrame = window.cancelAnimationFrame || window.mozcancelAnimationFrame || window.webkitcancelAnimationFrame || window.mscancelAnimationFrame;
-	    window.cancelAnimationFrame = cancelAnimationFrame;
-	}
-
-	/**
-	 * 要素の高さをそろえる
-	 * @param [object]  el  DOM要素
-	 */
-	function heightLine(el) {
-	    var array = void 0,
-	        height = void 0,
-	        i = void 0,
-	        len = void 0;
-
-	    array = [];
-	    i = 0;
-	    len = el.length;
-
-	    for (; i < len; i++) {
-	        array.push(getHeight(el[i]));
-	    }
-	    height = Math.max.apply(null, array);
-	    i = 0;
-
-	    for (; i < len; i++) {
-	        el[i].style.height = height + 'px';
-	    }
-	}
-
-	/**
-	 * jsonpを読む
-	 * @param [object]  
-	 */
-
-	function loadJSONP(url, callback, context) {
-	    // INIT
-	    var unique = 0;
-	    var name = "_jsonp_" + unique++;
-	    if (url.match(/\?/)) url += "&callback=" + name;else url += "?callback=" + name;
-	    // Create script
-	    var script = document.createElement('script');
-	    script.type = 'text/javascript';
-	    script.src = url;
-	    // Setup handler
-	    window[name] = function (data) {
-	        callback.call(context || window, data);
-	        document.getElementsByTagName('head')[0].removeChild(script);
-	        script = null;
-	        delete window[name];
-	    };
-	    // Load JSON
-	    document.getElementsByTagName('head')[0].appendChild(script);
-	};
 
 /***/ }),
 /* 206 */
@@ -26094,17 +25800,62 @@
 	var React = __webpack_require__(1);
 
 
-	var ____ClassO=React.Component;for(var ____ClassO____Key in ____ClassO){if(____ClassO.hasOwnProperty(____ClassO____Key)){About[____ClassO____Key]=____ClassO[____ClassO____Key];}}var ____SuperProtoOf____ClassO=____ClassO===null?null:____ClassO.prototype;About.prototype=Object.create(____SuperProtoOf____ClassO);About.prototype.constructor=About;About.__superConstructor__=____ClassO;function About(){"use strict";if(____ClassO!==null){____ClassO.apply(this,arguments);}}
-	    Object.defineProperty(About.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	        return (
-	            React.createElement("div", {className: "page-about"}, 
-	                React.createElement("p", null, "About")
-	            )
-	        );
-	    }});
+	var ____Class1J=React.Component;for(var ____Class1J____Key in ____Class1J){if(____Class1J.hasOwnProperty(____Class1J____Key)){Concept[____Class1J____Key]=____Class1J[____Class1J____Key];}}var ____SuperProtoOf____Class1J=____Class1J===null?null:____Class1J.prototype;Concept.prototype=Object.create(____SuperProtoOf____Class1J);Concept.prototype.constructor=Concept;Concept.__superConstructor__=____Class1J;function Concept(){"use strict";if(____Class1J!==null){____Class1J.apply(this,arguments);}}
+	  Object.defineProperty(Concept.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
+	    return (
+	      React.createElement("div", {className: "page-works"},
+
+	        React.createElement("h2", null, "Works"),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "June 2017"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://artdesignjobs.bijutsutest.xyz/", target: "_blank"}, "Dezain no Genba ( job listing website for creators )")),
+	        React.createElement("p", null, "* ID&Password required")
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "May 2017"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://fsimtest.shop67.makeshop.jp/", target: "_blank"}, "muta Online Store")),
+	        React.createElement("p", null, "* ID&Password required")
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "April 2017"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://art-marche.jp/2017/", target: "_blank"}, "Kobe Art Marche 2017 Teaser Website"))
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "January 2017"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://sunart-corp.com/", target: "_blank"}, "Sunart Official Website"))
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "December 2016"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://www.epoi-jp.com/fs/epoi/c/top", target: "_blank"}, "Epoi Online Store"))
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "Auguast 2016"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://www.kawata-gallery.com/", target: "_blank"}, "Kawata Gallery Official Website"))
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "Auguast 2016"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://www.falkland.co.jp/", target: "_blank"}, "Falkland Official Website"))
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "July 2016"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://www.epoi-jp.com/", target: "_blank"}, "Epoi Official Website"))
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "June 2016"),
+	        React.createElement("h3", null, React.createElement("a", {href: "http://art-marche.jp/2016/", target: "_blank"}, "Kobe Art Marche Official Website 2016"))
+	      ),
+	      React.createElement("div", {className: "history"},
+	        React.createElement("time", null, "March 2016"),
+	        React.createElement("h3", null, React.createElement("a", {href: "https://www.amanaartphoto.com/", target: "_blank"}, "Amana art photo Online Store"))
+	      )
 
 
-	module.exports = About;
+	    )
+	  );
+	}});
+
+
+	module.exports = Concept;
 
 
 /***/ }),
@@ -26114,30 +25865,10 @@
 	var React = __webpack_require__(1);
 
 
-	var ____ClassP=React.Component;for(var ____ClassP____Key in ____ClassP){if(____ClassP.hasOwnProperty(____ClassP____Key)){Concept[____ClassP____Key]=____ClassP[____ClassP____Key];}}var ____SuperProtoOf____ClassP=____ClassP===null?null:____ClassP.prototype;Concept.prototype=Object.create(____SuperProtoOf____ClassP);Concept.prototype.constructor=Concept;Concept.__superConstructor__=____ClassP;function Concept(){"use strict";if(____ClassP!==null){____ClassP.apply(this,arguments);}}
-	    Object.defineProperty(Concept.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
-	        return (
-	            React.createElement("div", {className: "page-concept"}, 
-	                React.createElement("p", null, "Concept")
-	            )
-	        );
-	    }});
-
-
-	module.exports = Concept;
-
-
-/***/ }),
-/* 208 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-
-
-	var ____ClassQ=React.Component;for(var ____ClassQ____Key in ____ClassQ){if(____ClassQ.hasOwnProperty(____ClassQ____Key)){Item[____ClassQ____Key]=____ClassQ[____ClassQ____Key];}}var ____SuperProtoOf____ClassQ=____ClassQ===null?null:____ClassQ.prototype;Item.prototype=Object.create(____SuperProtoOf____ClassQ);Item.prototype.constructor=Item;Item.__superConstructor__=____ClassQ;function Item(){"use strict";if(____ClassQ!==null){____ClassQ.apply(this,arguments);}}
+	var ____Class1M=React.Component;for(var ____Class1M____Key in ____Class1M){if(____Class1M.hasOwnProperty(____Class1M____Key)){Item[____Class1M____Key]=____Class1M[____Class1M____Key];}}var ____SuperProtoOf____Class1M=____Class1M===null?null:____Class1M.prototype;Item.prototype=Object.create(____SuperProtoOf____Class1M);Item.prototype.constructor=Item;Item.__superConstructor__=____Class1M;function Item(){"use strict";if(____Class1M!==null){____Class1M.apply(this,arguments);}}
 	    Object.defineProperty(Item.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
-	            React.createElement("div", {className: "page-item"}, 
+	            React.createElement("div", {className: "page-item"},
 	                React.createElement("p", null, "Item")
 	            )
 	        );
@@ -26148,16 +25879,16 @@
 
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 
 
-	var ____ClassR=React.Component;for(var ____ClassR____Key in ____ClassR){if(____ClassR.hasOwnProperty(____ClassR____Key)){News[____ClassR____Key]=____ClassR[____ClassR____Key];}}var ____SuperProtoOf____ClassR=____ClassR===null?null:____ClassR.prototype;News.prototype=Object.create(____SuperProtoOf____ClassR);News.prototype.constructor=News;News.__superConstructor__=____ClassR;function News(){"use strict";if(____ClassR!==null){____ClassR.apply(this,arguments);}}
+	var ____Class1K=React.Component;for(var ____Class1K____Key in ____Class1K){if(____Class1K.hasOwnProperty(____Class1K____Key)){News[____Class1K____Key]=____Class1K[____Class1K____Key];}}var ____SuperProtoOf____Class1K=____Class1K===null?null:____Class1K.prototype;News.prototype=Object.create(____SuperProtoOf____Class1K);News.prototype.constructor=News;News.__superConstructor__=____Class1K;function News(){"use strict";if(____Class1K!==null){____Class1K.apply(this,arguments);}}
 	    Object.defineProperty(News.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
-	            React.createElement("div", {className: "page-contact"}, 
+	            React.createElement("div", {className: "page-contact"},
 	                React.createElement("p", null, "contact")
 	            )
 	        );
@@ -26168,14 +25899,14 @@
 
 
 /***/ }),
-/* 210 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var Router = __webpack_require__(157);
 	var $__0=       Router,State=$__0.State,Route=$__0.Route,DefaultRoute=$__0.DefaultRoute,NotFoundRoute=$__0.NotFoundRoute,RouteHandler=$__0.RouteHandler,Link=$__0.Link;
 
-	var ____ClassS=React.Component;for(var ____ClassS____Key in ____ClassS){if(____ClassS.hasOwnProperty(____ClassS____Key)){LangRoot[____ClassS____Key]=____ClassS[____ClassS____Key];}}var ____SuperProtoOf____ClassS=____ClassS===null?null:____ClassS.prototype;LangRoot.prototype=Object.create(____SuperProtoOf____ClassS);LangRoot.prototype.constructor=LangRoot;LangRoot.__superConstructor__=____ClassS;function LangRoot(){"use strict";if(____ClassS!==null){____ClassS.apply(this,arguments);}}
+	var ____Class1L=React.Component;for(var ____Class1L____Key in ____Class1L){if(____Class1L.hasOwnProperty(____Class1L____Key)){LangRoot[____Class1L____Key]=____Class1L[____Class1L____Key];}}var ____SuperProtoOf____Class1L=____Class1L===null?null:____Class1L.prototype;LangRoot.prototype=Object.create(____SuperProtoOf____Class1L);LangRoot.prototype.constructor=LangRoot;LangRoot.__superConstructor__=____Class1L;function LangRoot(){"use strict";if(____Class1L!==null){____Class1L.apply(this,arguments);}}
 	    Object.defineProperty(LangRoot.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	        return (
 	            React.createElement(RouteHandler, null)
@@ -26185,161 +25916,6 @@
 
 	module.exports = LangRoot;
 
-
-/***/ }),
-/* 211 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var CanvasUtils = function () {
-	  function CanvasUtils() {
-	    _classCallCheck(this, CanvasUtils);
-	  }
-
-	  _createClass(CanvasUtils, [{
-	    key: "norm",
-	    value: function norm(value, min, max) {
-	      return (value - min) / (max - min);
-	    }
-	  }, {
-	    key: "lerp",
-	    value: function lerp(norm, min, max) {
-	      return (max - min) * norm + min;
-	    }
-	  }, {
-	    key: "map",
-	    value: function map(value, sourceMin, sourceMax, destMin, destMax) {
-	      return utils.lerp(utils.norm(value, sourceMin, sourceMax), destMin, destMax);
-	    }
-	  }, {
-	    key: "clamp",
-	    value: function clamp(value, min, max) {
-	      return Math.min(Math.max(value, Math.min(min, max)), Math.max(min, max));
-	    }
-	  }, {
-	    key: "distance",
-	    value: function distance(p0, p1) {
-	      var dx = p1.x - p0.x,
-	          dy = p1.y - p0.y;
-	      return Math.sqrt(dx * dx + dy * dy);
-	    }
-	  }, {
-	    key: "distanceXY",
-	    value: function distanceXY(x0, y0, x1, y1) {
-	      var dx = x1 - x0,
-	          dy = y1 - y0;
-	      return Math.sqrt(dx * dx + dy * dy);
-	    }
-	  }, {
-	    key: "circleCollision",
-	    value: function circleCollision(c0, c1) {
-	      return utils.distance(c0, c1) <= c0.radius + c1.radius;
-	    }
-	  }, {
-	    key: "circlePointCollision",
-	    value: function circlePointCollision(x, y, circle) {
-	      return utils.distanceXY(x, y, circle.x, circle.y) < circle.radius;
-	    }
-	  }, {
-	    key: "pointInRect",
-	    value: function pointInRect(x, y, rect) {
-	      return utils.inRange(x, rect.x, rect.x + rect.width) && utils.inRange(y, rect.y, rect.y + rect.height);
-	    }
-	  }, {
-	    key: "inRange",
-	    value: function inRange(value, min, max) {
-	      return value >= Math.min(min, max) && value <= Math.max(min, max);
-	    }
-	  }, {
-	    key: "rangeIntersect",
-	    value: function rangeIntersect(min0, max0, min1, max1) {
-	      return Math.max(min0, max0) >= Math.min(min1, max1) && Math.min(min0, max0) <= Math.max(min1, max1);
-	    }
-	  }, {
-	    key: "rectIntersect",
-	    value: function rectIntersect(r0, r1) {
-	      return utils.rangeIntersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width) && utils.rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height);
-	    }
-	  }, {
-	    key: "degreesToRads",
-	    value: function degreesToRads(degrees) {
-	      return degrees / 180 * Math.PI;
-	    }
-	  }, {
-	    key: "radsToDegrees",
-	    value: function radsToDegrees(radians) {
-	      return radians * 180 / Math.PI;
-	    }
-	  }, {
-	    key: "randomRange",
-	    value: function randomRange(min, max) {
-	      return min + Math.random() * (max - min);
-	    }
-	  }, {
-	    key: "randomInt",
-	    value: function randomInt(min, max) {
-	      return Math.floor(min + Math.random() * (max - min + 1));
-	    }
-	  }, {
-	    key: "roundToPlaces",
-	    value: function roundToPlaces(value, places) {
-	      var mult = Math.pow(10, places);
-	      return Math.round(value * mult) / mult;
-	    }
-	  }, {
-	    key: "roundNearest",
-	    value: function roundNearest(value, nearest) {
-	      return Math.round(value / nearest) * nearest;
-	    }
-	  }, {
-	    key: "quadraticBezier",
-	    value: function quadraticBezier(p0, p1, p2, t, pFinal) {
-	      pFinal = pFinal || {};
-	      pFinal.x = Math.pow(1 - t, 2) * p0.x + (1 - t) * 2 * t * p1.x + t * t * p2.x;
-	      pFinal.y = Math.pow(1 - t, 2) * p0.y + (1 - t) * 2 * t * p1.y + t * t * p2.y;
-	      return pFinal;
-	    }
-	  }, {
-	    key: "cubicBezier",
-	    value: function cubicBezier(p0, p1, p2, p3, t, pFinal) {
-	      pFinal = pFinal || {};
-	      pFinal.x = Math.pow(1 - t, 3) * p0.x + Math.pow(1 - t, 2) * 3 * t * p1.x + (1 - t) * 3 * t * t * p2.x + t * t * t * p3.x;
-	      pFinal.y = Math.pow(1 - t, 3) * p0.y + Math.pow(1 - t, 2) * 3 * t * p1.y + (1 - t) * 3 * t * t * p2.y + t * t * t * p3.y;
-	      return pFinal;
-	    }
-	  }, {
-	    key: "multicurve",
-	    value: function multicurve(points, context) {
-	      var p0, p1, midx, midy;
-
-	      context.moveTo(points[0].x, points[0].y);
-
-	      for (var i = 1; i < points.length - 2; i += 1) {
-	        p0 = points[i];
-	        p1 = points[i + 1];
-	        midx = (p0.x + p1.x) / 2;
-	        midy = (p0.y + p1.y) / 2;
-	        context.quadraticCurveTo(p0.x, p0.y, midx, midy);
-	      }
-	      p0 = points[points.length - 2];
-	      p1 = points[points.length - 1];
-	      context.quadraticCurveTo(p0.x, p0.y, p1.x, p1.y);
-	    }
-	  }]);
-
-	  return CanvasUtils;
-	}();
-
-	exports.default = CanvasUtils;
 
 /***/ })
 /******/ ]);
