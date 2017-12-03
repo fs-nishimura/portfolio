@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^lab.nnishimura.io
+RewriteRule ^(.*)$ http://www.nnishimura.io/lab/$1 [L,NC,QSA]
