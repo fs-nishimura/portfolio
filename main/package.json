@@ -1,5 +1,5 @@
 {
-  "name": "namplate",
+  "name": "nnishimura.io",
   "version": "3.9.0",
   "description": "",
   "main": "index.js",
@@ -20,7 +20,7 @@
     "es6-loader": "^0.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "",
-    "gulp-babel": "^6.1.2",
+    "gulp-babel": "^7.0.0",
     "gulp-changed": "",
     "gulp-clean": "",
     "gulp-combine-media-queries": "",
@@ -36,13 +36,13 @@
     "gulp-watch": "",
     "gulp-webpack": "",
     "jsx-loader": "",
-    "react": "~0.13.3",
-    "react-router": "~0.13.3",
+    "react": "~16.2.0",
+    "react-router": "~4.2.0",
     "request": "",
     "request-promise": "",
     "run-sequence": "",
     "underscore": "",
-    "webpack": "^1.15.0"
+    "webpack": "^3.10.0"
   },
   "dependencies": {
     "babel-register": "^6.24.1"

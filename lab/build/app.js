@@ -1,0 +1,1 @@
+console.error("Error: Cannot find module '/Users/nnishimura/local-work/git/react_practice/src/app.js' from '/Users/nnishimura/local-work/git/react_practice'");

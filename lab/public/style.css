@@ -1,0 +1,172 @@
+*{
+  line-height: 1.5;
+  word-break: break-all;
+  font-feature-settings : "palt";
+}
+
+input,textarea,button{
+  -webkit-appearance:none;
+}
+
+html{
+  font-size:18px;
+  font-family: 'Montserrat','Noto Sans Japanese', sans-serif;
+}
+
+@media screen and (max-width:500px) {
+  html{
+    font-size: 14px;
+  }
+}
+
+body{
+  margin:5rem;
+}
+
+form{
+  text-align: center;
+}
+
+#addtodo{
+  letter-spacing: 0.05em;
+  position: relative;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 3px;
+  border:3px solid #cccccc;
+  width: 50%;
+  height: 3rem;
+  line-height: 3rem;
+  margin-bottom: 3rem;
+  font-size: 1.5rem;
+  padding:0.8rem;
+}
+
+
+button {
+  cursor: pointer;
+  vertical-align: middle;
+  color:#fff;
+  display: inline-block;
+  height: 3.2rem;
+  width: 3.2rem;
+  font-size: 2rem;
+  padding:0;
+  font-weight: bold;
+  margin-left:1.5rem;
+  border-radius: 50%;
+  background-color: #333;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+#addtodo:focus{
+  border-color:#333;
+  box-shadow: none;
+  outline: none;
+}
+
+.divider{
+  letter-spacing: 0.3em;
+  padding:0 0.05em 0 0.1em;
+}
+
+#divider0{
+  color:#DE5C5A;
+}
+
+#divider1{
+  color:#45358F;
+}
+
+#divider2{
+  color:#2ED195;
+}
+
+.completed-true span{
+  text-decoration: line-through;
+}
+
+.wrapper{
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.todos{
+  position: relative;
+  overflow: hidden;
+}
+
+.todos-list{
+  width: 33%;
+  float: left;
+  border-left:2px solid #ececec;
+  min-height: 500px;
+  box-sizing: border-box;
+  padding:1rem;
+}
+
+.todos-list ul{
+  margin:0;
+  padding: 0;
+}
+
+.todos-list h2{
+  letter-spacing: 0.1em;
+  margin:0;
+  font-family: 'Montserrat', sans-serif;
+  padding: 1rem 0;
+}
+
+.todos-list:first-child{
+  border-left: none;
+}
+
+.todos-list-el{
+  display: block;
+  font-size:1.5rem;
+  position: relative;
+  font-family: 'Open Sans','Noto Sans Japanese', sans-serif;
+}
+
+.todos-list-el input{
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top:0;
+}
+
+.todos-list-el:before{
+  content: "・";
+  font-size: 1.5rem;
+  display: inline;
+  padding-right: 0.5em;
+}
+
+.arrow{
+  margin-top: 3rem;
+  text-indent: -9999px;
+  border-top:2px solid #333333;
+  border-left:2px solid #333333;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  transition: all .3s ease-out;
+  width: 1rem;
+  height: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.isShowall-false{
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
