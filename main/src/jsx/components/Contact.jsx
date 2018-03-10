@@ -1,4 +1,4 @@
-var React = require('react')
+import React from 'react'
 
 class News extends React.Component {
   render() {
@@ -10,4 +10,4 @@ class News extends React.Component {
   }
 }
 
-module.exports = News
+export default News

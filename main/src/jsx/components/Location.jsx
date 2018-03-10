@@ -1,4 +1,4 @@
-var React = require('react')
+import React from 'react'
 
 class Location extends React.Component {
   render() {
@@ -10,4 +10,4 @@ class Location extends React.Component {
   }
 }
 
-module.exports = Location
+export default Location

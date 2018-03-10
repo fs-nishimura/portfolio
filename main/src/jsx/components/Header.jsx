@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 const React = require('react')
 const Router = require('react-router')
 const { Link } = Router
@@ -53,8 +54,8 @@ class Header extends React.Component {
 }
 
 Header.contextTypes = {
-  lang: React.PropTypes.string,
-  langPrefix: React.PropTypes.string,
+  lang: PropTypes.string,
+  langPrefix: PropTypes.string,
 }
 
 module.exports = Header

@@ -1,11 +1,10 @@
-const React = require('react')
-const Router = require('react-router')
-const { State, Route, DefaultRoute, NotFoundRoute, RouteHandler, Link } = Router
-const Header = require('./Header')
+import React from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Header from './Header'
+import Data from 'root/_config/data'
 const CanvasUtils = require('babel!../../js/classes/utils/canvasUtils.js')
   .default
 const CanvasUtils_ = new CanvasUtils()
-const Data = require('../../_config/data')
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class App extends React.Component {
             </Link>
           </h1>
           <div className={'container isTop-' + isTop}>
-            <RouteHandler />
+            {this.props.children}
             <Header />
           </div>
         </div>
@@ -44,10 +43,7 @@ class App extends React.Component {
 
 function drawCanvas() {
   var canvas = Data.canvas,
-    context = Data.canvasContext,
-    current = 0,
-    width = (canvas.width = Data.winW),
-    height = (canvas.height = Data.winH)
+    context = Data.canvasContext
 
   for (var i = 0; i < Data.numShapes; i++) {
     Data.shapes[i] = {
@@ -92,15 +88,11 @@ window.addEventListener('load', () => {
 window.addEventListener('mousemove', e => {
   const ratioX = (Data.winW / 2 - e.pageX) * 0.03
   const ratioY = (Data.winH / 2 - e.pageY) * 0.01
-  let timer
 
   for (let i = 0; i < Data.numShapes; i++) {
-    const currentX = Data.shapes[i].x
-    const index = i
-
     Data.shapes[i].x = Data.shapes[i].x + ratioX
     Data.shapes[i].y = Data.shapes[i].y + ratioY
   }
 })
 
-module.exports = App
+export default App

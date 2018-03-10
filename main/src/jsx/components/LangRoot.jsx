@@ -1,11 +1,9 @@
-var React = require('react')
-var Router = require('react-router')
-var { State, Route, DefaultRoute, NotFoundRoute, RouteHandler, Link } = Router
+import React from 'react'
 
 class LangRoot extends React.Component {
   render() {
-    return <RouteHandler />
+    return this.props.children
   }
 }
 
-module.exports = LangRoot
+export default LangRoot

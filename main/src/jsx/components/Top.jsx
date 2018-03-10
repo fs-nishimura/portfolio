@@ -49,4 +49,4 @@ class Top extends React.Component {
   }
 }
 
-module.exports = Top
+export default Top

@@ -1,8 +1,9 @@
-import gulp from 'gulp'
-
 /**
  * 設定
  */
+
+import gulp from 'gulp'
+import babel from 'gulp-babel'
 const $ = require('gulp-load-plugins')()
 const browserSync = require('browser-sync')
 const runSequence = require('run-sequence')
@@ -23,6 +24,7 @@ var log = txt => {
 var jsCompile = config => {
   gulp
     .src('')
+    .pipe(babel({ presets: ['es2015', 'react'] }))
     .pipe($.webpack(config))
     .pipe(gulp.dest(''))
 }

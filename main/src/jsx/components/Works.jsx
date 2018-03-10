@@ -1,4 +1,4 @@
-var React = require('react')
+import React from 'react'
 
 class Concept extends React.Component {
   render() {
@@ -92,4 +92,4 @@ class Concept extends React.Component {
   }
 }
 
-module.exports = Concept
+export default Concept

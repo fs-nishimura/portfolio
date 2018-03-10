@@ -1,38 +1,27 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
-const Router = require('react-router')
-const { Route, DefaultRoute } = Router
-const Data = require('../_config/data')
-const App = require('./components/App')
-const Top = require('./components/Top')
-const About = require('./components/About')
-const Works = require('./components/Works')
-
-const routes = (
-  <Route path="/" name="app" handler={App}>
-    <DefaultRoute handler={Top} />
-    <Route path="about/" handler={About} />
-    <Route path="works/" handler={Works} />
-  </Route>
-)
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Data from 'root/_config/data'
+import App from 'root/jsx/components/App'
+import Top from 'root/jsx/components/Top'
+import About from 'root/jsx/components/About'
+import Works from 'root/jsx/components/Works'
+const { DefaultRoute } = Router
 
 Data.winW = window.innerWidth
 Data.winH = window.innerHeight
 
-Router.run(routes, Router.HistoryLocation, (Handler, state) => {
-  var context = {}
-
-  if (state.pathname.indexOf('/en/') === 0) {
-    context.lang = 'en'
-    context.langPrefix = '/en'
-  } else {
-    context.lang = 'ja'
-    context.langPrefix = ''
-  }
-  React.withContext(context, () => {
-    ReactDOM.render(<Handler pathname={state.pathname} />, document.body)
-  })
-})
+ReactDOM.render(
+  <Router>
+    <div>
+      <Route exact path="/" name="app" component={App}>
+        <Route path="about/" component={About} />
+        <Route path="works/" component={Works} />
+      </Route>
+    </div>
+  </Router>,
+  document.getElementById('root')
+)
 
 let resizeTimer
 window.addEventListener('resize', () => {

@@ -5,7 +5,7 @@
   "author": "nnishimura <naoko.nishimura1018@gmail.com>",
   "license": "",
   "scripts": {
-    "precommit": "eslint main/src lab/src",
+    "precommit": "eslint main/src",
     "tags:update": "git fetch --prune git@github.com:nnishimura/nnishimura.io.git '+refs/tags/*:refs/tags/*'",
     "version": "npm run tags:update && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
