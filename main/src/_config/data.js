@@ -1,8 +1,6 @@
-
 "use strict"
 
 module.exports = {
-
     menu: [
         { name: 'WORKS', path: '/works/' },
         { name: 'PROFILE', path: '/about/' },

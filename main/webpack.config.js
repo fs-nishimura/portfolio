@@ -1,9 +1,7 @@
-
-
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path');
 const config = require('./config');
-
 
 module.exports = {
 
@@ -30,18 +28,30 @@ module.exports = {
         resolve: {
             root: [path.join(__dirname, 'bower_components')],
             moduleDirectories: ['bower_components'],
-            extensions: ['', '.js', '.jsx', '.coffee']
+            extensions: ['', '.js', '.jsx', '.coffee'],
+            descriptionFiles: ['bower.json'],
+            mainFields: ['main']
+        },
+
+        optimization: {
+          minimizer: [
+            new UglifyJsPlugin({
+              uglifyOptions: {
+                warning: "verbose",
+                ecma: 6,
+                beautify: false,
+                compress: false,
+                comments: false,
+                mangle: false,
+                toplevel: false,
+                keep_classnames: true,
+                keep_fnames: true
+              }
+            })
+          ]
         },
 
         plugins: [
-            new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])),
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                    warnings: false
-                },
-                mangle: false,
-                preserveComments: 'some' // licenseコメントを残す
-            }),
             new webpack.DefinePlugin({
                 DEBUG: config.production.debug,
                 'process.env': {
@@ -75,18 +85,7 @@ module.exports = {
             root: [path.join(__dirname, 'bower_components')],
             moduleDirectories: ['bower_components'],
             extensions: ['', '.js', '.jsx', '.coffee']
-        },
-
-        plugins: [
-          new webpack.ResolverPlugin(
-          new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-      ),
-
-            new webpack.DefinePlugin({
-                DEBUG: config.develop.debug
-            })
-        ]
-
+        }
     }
 
 };

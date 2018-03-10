@@ -1,4 +1,4 @@
-require( 'babel-register' ); // 追記
+// require('babel-register'); // 追記
 
 import gulp from 'gulp';
 
