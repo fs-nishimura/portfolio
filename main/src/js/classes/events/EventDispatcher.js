@@ -25,13 +25,13 @@ export default class EventDispatcher {
      *  @param  {function} listener 削除する関数
      */
   removeEventListener(name, listener) {
-    let i, j, len, ref, listeners
+    let i, j, len, listeners
 
     if (!this.listeners[name]) {
       return this
     }
 
-    ref = this.listeners[name]
+    const ref = this.listeners[name]
 
     for (i = j = 0, len = ref.length; j < len; i = ++j) {
       listeners = ref[i]
@@ -47,15 +47,15 @@ export default class EventDispatcher {
      *  @param  {string} eventName  イベント名
      */
   dispatchEvent(name) {
-    let e, j, len, list, ref, listeners
+    let j, len, ref, listeners
 
-    list = (ref = this.listeners) != null ? ref[name] : void 0
+    const list = (ref = this.listeners) != null ? ref[name] : void 0
 
     if (!list) {
       return this
     }
 
-    e = {}
+    const e = {}
     e.target = null
     e.context = null
     e.target = this

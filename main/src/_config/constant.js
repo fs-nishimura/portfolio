@@ -1,6 +1,5 @@
 'use strict'
 
-const BASE_DIR = ''
 const BASE_URL = 'http://hoge.com'
 const BASE_TITLE = 'no title'
 const BASE_DESCRIPTION = 'no description'

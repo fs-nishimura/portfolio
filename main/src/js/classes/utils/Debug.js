@@ -27,7 +27,7 @@ export default class Debug extends EventDispatcher {
 
       div.addEventListener(
         'click',
-        event => {
+        () => {
           this.doubleClickFlg++
 
           if (this.doubleClickFlg % 3 === 0) {

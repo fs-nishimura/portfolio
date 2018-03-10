@@ -1,19 +1,14 @@
 {
   "name": "nnishimura.io",
-  "version": "3.9.1",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "author": "nnishimura <naoko.nishimura1018@gmail.com>",
+  "license": "",
   "scripts": {
     "build": "gulp",
-    "sass": "gulp sass",
     "serve": "gulp s"
   },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
-  },
-  "author": "",
-  "license": "",
   "dependencies": {
     "axios": "0.17.1",
     "babel-polyfill": "6.26.0",
@@ -38,10 +33,6 @@
     "babel-register": "6.26.0",
     "browser-sync": "2.23.6",
     "es6-loader": "0.2.0",
-    "eslint": "3.14.1",
-    "eslint-config-prettier": "2.6.0",
-    "eslint-plugin-prettier": "2.3.1",
-    "eslint-plugin-react": "7.4.0",
     "gulp": "3.9.1",
     "gulp-autoprefixer": "5.0.0",
     "gulp-babel": "7.0.1",
@@ -59,11 +50,11 @@
     "gulp-uglify": "",
     "gulp-watch": "5.0.0",
     "gulp-webpack": "",
-    "run-sequence": "2.2.1",
-    "underscore": "",
-    "prettier": "1.7.3",
+    "husky": "^0.14.3",
     "jsx-loader": "",
+    "run-sequence": "2.2.1",
     "uglifyjs-webpack-plugin": "1.2.2",
+    "underscore": "",
     "webpack": "4.1.1"
   }
 }

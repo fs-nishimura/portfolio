@@ -52,10 +52,10 @@ export function getDigits(num, base = 10) {
  * @return {object} GET値をオブジェクト型で返す
  */
 export function getUrlVars() {
-  let i, key, keySearch, param, val, vars
+  let i, key, keySearch, val
 
-  vars = {}
-  param = location.search.substring(1).split('&')
+  const vars = {}
+  const param = location.search.substring(1).split('&')
   i = 0
 
   while (i < param.length) {
@@ -113,8 +113,7 @@ export function scrollDirection(event) {
  * @param {string} name 追加したいクラス名
  */
 export function addClass(el, name) {
-  let src
-  src = ' ' + el.className.replace(/[\t\r\n\f]/g, ' ') + ' '
+  const src = ' ' + el.className.replace(/[\t\r\n\f]/g, ' ') + ' '
   if (src.indexOf(' ' + name + ' ') >= 0) {
     return false
   }
@@ -128,9 +127,8 @@ export function addClass(el, name) {
  * @param {string} name 削除したいクラス名
  */
 export function removeClass(el, name) {
-  let dst, src
-  src = ' ' + el.className.replace(/[\t\r\n\f]/g, ' ') + ' '
-  dst = src.replace(' ' + name + ' ', ' ')
+  const src = ' ' + el.className.replace(/[\t\r\n\f]/g, ' ') + ' '
+  const dst = src.replace(' ' + name + ' ', ' ')
   el.className = dst.replace(/^\s+/, '').replace(/\s+$/, '')
   return src !== dst
 }
@@ -142,9 +140,7 @@ export function removeClass(el, name) {
  * @return {boolean}    クラスが存在するかを返す
  */
 export function hasClass(el, name) {
-  let className, l
-  className = ' ' + name + ' '
-  l = el.length
+  const className = ' ' + name + ' '
   if (
     (' ' + el.className + ' ').replace(/[\t\r\n\f]/g, ' ').indexOf(className) >=
     0
@@ -244,11 +240,11 @@ export function cancelAnimationFrame() {
  * @param [object]  el  DOM要素
  */
 export function heightLine(el) {
-  let array, height, i, len
+  let i
 
-  array = []
+  const array = []
   i = 0
-  len = el.length
+  const len = el.length
 
   for (; i < len; i++) {
     array.push(getHeight(el[i]))

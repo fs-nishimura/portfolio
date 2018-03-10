@@ -42,13 +42,13 @@ export default class Preloader extends EventDispatcher {
   }
 
   loadPreload(urls) {
-    let i, len, load, url
+    let i, len, url
 
-    load = (function(_this) {
+    const load = (function(_this) {
       return function(url) {
         var xhr
         xhr = new XMLHttpRequest()
-        xhr.onreadystatechange = function(e) {
+        xhr.onreadystatechange = function() {
           if (xhr.readyState === 4) {
             return _this.loadComplete(xhr.responseURL)
           }
@@ -73,7 +73,7 @@ export default class Preloader extends EventDispatcher {
     }
   }
 
-  progress(url) {
+  progress() {
     var base
 
     if (typeof (base = this.callbacks).progress === 'function') {

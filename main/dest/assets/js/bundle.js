@@ -19761,12 +19761,10 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2013-present, Facebook, Inc.
 	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
+	 * This source code is licensed under the MIT license found in the
+	 * LICENSE file in the root directory of this source tree.
 	 */
 
 	'use strict';
@@ -21807,73 +21805,80 @@
 
 /***/ }),
 /* 54 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/**
 	 * Copyright 2015, Yahoo! Inc.
 	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
 	 */
-	'use strict';
-
-	var REACT_STATICS = {
-	    childContextTypes: true,
-	    contextTypes: true,
-	    defaultProps: true,
-	    displayName: true,
-	    getDefaultProps: true,
-	    mixins: true,
-	    propTypes: true,
-	    type: true
-	};
-
-	var KNOWN_STATICS = {
-	  name: true,
-	  length: true,
-	  prototype: true,
-	  caller: true,
-	  callee: true,
-	  arguments: true,
-	  arity: true
-	};
-
-	var defineProperty = Object.defineProperty;
-	var getOwnPropertyNames = Object.getOwnPropertyNames;
-	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-	var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-	var getPrototypeOf = Object.getPrototypeOf;
-	var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
-
-	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
-	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-
-	        if (objectPrototype) {
-	            var inheritedComponent = getPrototypeOf(sourceComponent);
-	            if (inheritedComponent && inheritedComponent !== objectPrototype) {
-	                hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+	(function (global, factory) {
+	     true ? module.exports = factory() :
+	    typeof define === 'function' && define.amd ? define(factory) :
+	    (global.hoistNonReactStatics = factory());
+	}(this, (function () {
+	    'use strict';
+	    
+	    var REACT_STATICS = {
+	        childContextTypes: true,
+	        contextTypes: true,
+	        defaultProps: true,
+	        displayName: true,
+	        getDefaultProps: true,
+	        getDerivedStateFromProps: true,
+	        mixins: true,
+	        propTypes: true,
+	        type: true
+	    };
+	    
+	    var KNOWN_STATICS = {
+	        name: true,
+	        length: true,
+	        prototype: true,
+	        caller: true,
+	        callee: true,
+	        arguments: true,
+	        arity: true
+	    };
+	    
+	    var defineProperty = Object.defineProperty;
+	    var getOwnPropertyNames = Object.getOwnPropertyNames;
+	    var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+	    var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	    var getPrototypeOf = Object.getPrototypeOf;
+	    var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
+	    
+	    return function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+	        if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+	            
+	            if (objectPrototype) {
+	                var inheritedComponent = getPrototypeOf(sourceComponent);
+	                if (inheritedComponent && inheritedComponent !== objectPrototype) {
+	                    hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+	                }
 	            }
-	        }
-
-	        var keys = getOwnPropertyNames(sourceComponent);
-
-	        if (getOwnPropertySymbols) {
-	            keys = keys.concat(getOwnPropertySymbols(sourceComponent));
-	        }
-
-	        for (var i = 0; i < keys.length; ++i) {
-	            var key = keys[i];
-	            if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
-	                var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
-	                try { // Avoid failures from read-only properties
-	                    defineProperty(targetComponent, key, descriptor);
-	                } catch (e) {}
+	            
+	            var keys = getOwnPropertyNames(sourceComponent);
+	            
+	            if (getOwnPropertySymbols) {
+	                keys = keys.concat(getOwnPropertySymbols(sourceComponent));
 	            }
+	            
+	            for (var i = 0; i < keys.length; ++i) {
+	                var key = keys[i];
+	                if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
+	                    var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+	                    try { // Avoid failures from read-only properties
+	                        defineProperty(targetComponent, key, descriptor);
+	                    } catch (e) {}
+	                }
+	            }
+	            
+	            return targetComponent;
 	        }
-
+	        
 	        return targetComponent;
-	    }
-
-	    return targetComponent;
-	};
+	    };
+	})));
 
 
 /***/ }),
@@ -21908,9 +21913,9 @@
 	const CanvasUtils_ = new CanvasUtils()
 	const Data = __webpack_require__(55)
 
-	var ____Class52=React.Component;for(var ____Class52____Key in ____Class52){if(____Class52.hasOwnProperty(____Class52____Key)){App[____Class52____Key]=____Class52[____Class52____Key];}}var ____SuperProtoOf____Class52=____Class52===null?null:____Class52.prototype;App.prototype=Object.create(____SuperProtoOf____Class52);App.prototype.constructor=App;App.__superConstructor__=____Class52;
+	var ____Class6f=React.Component;for(var ____Class6f____Key in ____Class6f){if(____Class6f.hasOwnProperty(____Class6f____Key)){App[____Class6f____Key]=____Class6f[____Class6f____Key];}}var ____SuperProtoOf____Class6f=____Class6f===null?null:____Class6f.prototype;App.prototype=Object.create(____SuperProtoOf____Class6f);App.prototype.constructor=App;App.__superConstructor__=____Class6f;
 	  function App(props) {"use strict";
-	    ____Class52.call(this,props)
+	    ____Class6f.call(this,props)
 	  }
 	  Object.defineProperty(App.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	    const isTop = this.props.pathname.length == 1 ? true : false
@@ -22017,9 +22022,9 @@
 	const _ = __webpack_require__(58)
 	const MenuData = __webpack_require__(55).menu
 
-	var ____Class53=React.Component;for(var ____Class53____Key in ____Class53){if(____Class53.hasOwnProperty(____Class53____Key)){Header[____Class53____Key]=____Class53[____Class53____Key];}}var ____SuperProtoOf____Class53=____Class53===null?null:____Class53.prototype;Header.prototype=Object.create(____SuperProtoOf____Class53);Header.prototype.constructor=Header;Header.__superConstructor__=____Class53;
+	var ____Class6g=React.Component;for(var ____Class6g____Key in ____Class6g){if(____Class6g.hasOwnProperty(____Class6g____Key)){Header[____Class6g____Key]=____Class6g[____Class6g____Key];}}var ____SuperProtoOf____Class6g=____Class6g===null?null:____Class6g.prototype;Header.prototype=Object.create(____SuperProtoOf____Class6g);Header.prototype.constructor=Header;Header.__superConstructor__=____Class6g;
 	  function Header(props) {"use strict";
-	    ____Class53.call(this,props)
+	    ____Class6g.call(this,props)
 	    this.state = {
 	      items: MenuData.map(function(item)  {return _.clone(item);}),
 	    }
@@ -23800,7 +23805,7 @@
 
 	const React = __webpack_require__(1)
 
-	var ____Class4Z=React.Component;for(var ____Class4Z____Key in ____Class4Z){if(____Class4Z.hasOwnProperty(____Class4Z____Key)){Top[____Class4Z____Key]=____Class4Z[____Class4Z____Key];}}var ____SuperProtoOf____Class4Z=____Class4Z===null?null:____Class4Z.prototype;Top.prototype=Object.create(____SuperProtoOf____Class4Z);Top.prototype.constructor=Top;Top.__superConstructor__=____Class4Z;function Top(){"use strict";if(____Class4Z!==null){____Class4Z.apply(this,arguments);}}
+	var ____Class6e=React.Component;for(var ____Class6e____Key in ____Class6e){if(____Class6e.hasOwnProperty(____Class6e____Key)){Top[____Class6e____Key]=____Class6e[____Class6e____Key];}}var ____SuperProtoOf____Class6e=____Class6e===null?null:____Class6e.prototype;Top.prototype=Object.create(____SuperProtoOf____Class6e);Top.prototype.constructor=Top;Top.__superConstructor__=____Class6e;function Top(){"use strict";if(____Class6e!==null){____Class6e.apply(this,arguments);}}
 	  Object.defineProperty(Top.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	    return (
 	      React.createElement("div", {className: "page-home page"}, 
@@ -23858,7 +23863,7 @@
 
 	var React = __webpack_require__(1)
 
-	var ____Class50=React.Component;for(var ____Class50____Key in ____Class50){if(____Class50.hasOwnProperty(____Class50____Key)){About[____Class50____Key]=____Class50[____Class50____Key];}}var ____SuperProtoOf____Class50=____Class50===null?null:____Class50.prototype;About.prototype=Object.create(____SuperProtoOf____Class50);About.prototype.constructor=About;About.__superConstructor__=____Class50;function About(){"use strict";if(____Class50!==null){____Class50.apply(this,arguments);}}
+	var ____Class6c=React.Component;for(var ____Class6c____Key in ____Class6c){if(____Class6c.hasOwnProperty(____Class6c____Key)){About[____Class6c____Key]=____Class6c[____Class6c____Key];}}var ____SuperProtoOf____Class6c=____Class6c===null?null:____Class6c.prototype;About.prototype=Object.create(____SuperProtoOf____Class6c);About.prototype.constructor=About;About.__superConstructor__=____Class6c;function About(){"use strict";if(____Class6c!==null){____Class6c.apply(this,arguments);}}
 	  Object.defineProperty(About.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	    return (
 	      React.createElement("div", {className: "page-about"}, 
@@ -23902,7 +23907,7 @@
 
 	var React = __webpack_require__(1)
 
-	var ____Class51=React.Component;for(var ____Class51____Key in ____Class51){if(____Class51.hasOwnProperty(____Class51____Key)){Concept[____Class51____Key]=____Class51[____Class51____Key];}}var ____SuperProtoOf____Class51=____Class51===null?null:____Class51.prototype;Concept.prototype=Object.create(____SuperProtoOf____Class51);Concept.prototype.constructor=Concept;Concept.__superConstructor__=____Class51;function Concept(){"use strict";if(____Class51!==null){____Class51.apply(this,arguments);}}
+	var ____Class6d=React.Component;for(var ____Class6d____Key in ____Class6d){if(____Class6d.hasOwnProperty(____Class6d____Key)){Concept[____Class6d____Key]=____Class6d[____Class6d____Key];}}var ____SuperProtoOf____Class6d=____Class6d===null?null:____Class6d.prototype;Concept.prototype=Object.create(____SuperProtoOf____Class6d);Concept.prototype.constructor=Concept;Concept.__superConstructor__=____Class6d;function Concept(){"use strict";if(____Class6d!==null){____Class6d.apply(this,arguments);}}
 	  Object.defineProperty(Concept.prototype,"render",{writable:true,configurable:true,value:function() {"use strict";
 	    return (
 	      React.createElement("div", {className: "page-works"}, 
