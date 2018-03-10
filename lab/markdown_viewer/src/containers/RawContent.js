@@ -1,30 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTodo } from '../actions'
+import { renderMarkdown } from '../actions'
 import * as Config from '../config/config';
 
-
-let AddTodo = ({date,todos,addToDo}) => {
+let RawContent = ({text,renderMarkdown}) => {
 
   let input
 
   return (
     <div>
       <form
-      onSubmit={e => {
+      onKeyDown={e => {
         e.preventDefault()
         if (!input.value.trim()) {
           return
         }
-        addToDo(input.value);
+        renderMarkdown(input.value);
         input.value = ''
       }}>
-        <input id="addtodo" placeholder="Add todo..." ref={node => {
+        <textarea id="raw" placeholder="Enter markdown" ref={node => {
           input = node
         }} />
-        <button type="submit">
-          +
-        </button>
       </form>
     </div>
   )
@@ -32,19 +28,18 @@ let AddTodo = ({date,todos,addToDo}) => {
 
 const mapStateToProps = (state) => {
   return {
-    date:Config.NOW_DATE,
-    todos:state.todos
+    text:state.text
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToDo: (value) => {
-      dispatch(addTodo(value))
+    renderMarkdown: (value) => {
+      dispatch(renderMarkdown(value))
     }
   }
 }
 
-AddTodo = connect(mapStateToProps,mapDispatchToProps)(AddTodo)
+RawContent = connect(mapStateToProps,mapDispatchToProps)(RawContent)
 
-export default AddTodo
+export default RawContent

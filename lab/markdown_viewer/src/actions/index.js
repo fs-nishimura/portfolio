@@ -2,12 +2,9 @@ import * as Config from '../config/config'
 
 
 let nextTodoId = Config.nextTodoIdDefault();
-export const addTodo = (text) => {
+export const renderMarkdown = (text) => {
   return {
     type: 'ADD_TODO',
-    id: nextTodoId++,
-    date:Config.NOW_DATE,
-    dragging:false,
     text
   }
 }
