@@ -103,4 +103,4 @@ window.addEventListener('mousemove', e => {
   }
 })
 
-module.exports = App
+export default App

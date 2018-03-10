@@ -10,4 +10,4 @@ class Location extends React.Component {
   }
 }
 
-module.exports = Location
+export default Location

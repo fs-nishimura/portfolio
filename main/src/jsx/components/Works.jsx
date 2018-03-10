@@ -92,4 +92,4 @@ class Concept extends React.Component {
   }
 }
 
-module.exports = Concept
+export default Concept

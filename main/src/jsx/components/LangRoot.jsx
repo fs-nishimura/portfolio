@@ -8,4 +8,4 @@ class LangRoot extends React.Component {
   }
 }
 
-module.exports = LangRoot
+export default LangRoot

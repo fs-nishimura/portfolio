@@ -10,4 +10,4 @@ class News extends React.Component {
   }
 }
 
-module.exports = News
+export default News

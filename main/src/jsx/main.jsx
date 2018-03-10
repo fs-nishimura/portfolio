@@ -1,12 +1,16 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
-const Router = require('react-router')
-const { Route, DefaultRoute } = Router
+// const Router = require('react-router')
+import { Router, Route } from 'react-router'
+const { DefaultRoute } = Router
 const Data = require('../_config/data')
-const App = require('./components/App')
-const Top = require('./components/Top')
-const About = require('./components/About')
-const Works = require('./components/Works')
+import App from 'root/jsx/components/App'
+import Top from 'root/jsx/components/Top'
+import About from 'root/jsx/components/About'
+import Works from 'root/jsx/components/Works'
+
+Data.winW = window.innerWidth
+Data.winH = window.innerHeight
 
 const routes = (
   <Route path="/" name="app" handler={App}>
@@ -16,10 +20,23 @@ const routes = (
   </Route>
 )
 
-Data.winW = window.innerWidth
-Data.winH = window.innerHeight
+// // v0.13.x
+// Router.run(routes, Handler => {
+//   render(<Handler />, el)
+// })
+//
+// // v1.0
+// render(<Router>{routes}</Router>, el)
+//
+// // looks more like this:
+// render(
+//   <Router>
+//     <Route path="/" component={App} />
+//   </Router>,
+//   el
+// )
 
-Router.run(routes, Router.HistoryLocation, (Handler, state) => {
+render(<Router>{routes}</Router>, Router.HistoryLocation, (Handler, state) => {
   var context = {}
 
   if (state.pathname.indexOf('/en/') === 0) {
