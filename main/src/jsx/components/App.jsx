@@ -2,8 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Header from './Header'
 import Data from 'root/_config/data'
-const CanvasUtils = require('babel!../../js/classes/utils/canvasUtils.js')
-  .default
+import CanvasUtils from 'root/js/classes/utils/canvasUtils.js'
 const CanvasUtils_ = new CanvasUtils()
 
 class App extends React.Component {

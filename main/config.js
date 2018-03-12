@@ -20,10 +20,10 @@ module.exports = {
 
   dest: {
     path: {
-      root: './dest',
-      css: './dest/assets/css',
-      js: './dest/assets/js',
-      img: './dest/assets/img',
+      root: '.',
+      css: './assets/css',
+      js: './assets/js',
+      img: './assets/img',
     },
   },
 

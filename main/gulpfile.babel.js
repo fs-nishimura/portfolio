@@ -24,18 +24,18 @@ var log = txt => {
 var jsCompile = config => {
   gulp
     .src('')
-    .pipe(babel({ presets: ['es2015', 'react'] }))
-    .pipe($.webpack(config))
+    // .pipe(babel({ presets: ['es2015', 'react'] }))
+    // .pipe($.webpack(config))
     .pipe(gulp.dest(''))
 }
 
 gulp.task('webpack', () => {
-  jsCompile(webpackConfig.develop)
+  jsCompile(webpackConfig)
 })
 
-gulp.task('jsmin', () => {
-  jsCompile(webpackConfig.production)
-})
+// gulp.task('jsmin', () => {
+//   jsCompile(webpackConfig.production)
+// })
 
 /**
  * CSS系記述
