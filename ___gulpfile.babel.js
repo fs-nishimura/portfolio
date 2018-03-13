@@ -8,10 +8,11 @@ const $ = require('gulp-load-plugins')()
 const browserSync = require('browser-sync')
 const runSequence = require('run-sequence')
 const config = require('./config')
+const webpack = require('gulp-webpack')
 const webpackConfig = require('./webpack.config.js')
 
 const dev = config.develop.path //開発用
-const dst = config.dest.path //出力用
+const dst = config.dist.path //出力用
 const prd = config.production.path //公開用
 
 var log = txt => {
@@ -24,8 +25,9 @@ var log = txt => {
 var jsCompile = config => {
   gulp
     .src('')
-    // .pipe(babel({ presets: ['es2015', 'react'] }))
-    // .pipe($.webpack(config))
+    // when using webpack via gulp, we need to babelfy
+    // .pipe(babel({ presets: ['react', 'env'] }))
+    .pipe(webpack(config))
     .pipe(gulp.dest(''))
 }
 

@@ -1,14 +1,12 @@
-// import 'babel-polyfill'
+import 'babel-polyfill'
 import React from 'react'
-import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Data from 'root/_config/data'
-// import Routes from 'roots/components/Routes'
-import App from 'root/jsx/components/App'
-import Top from 'root/jsx/components/Top'
-import About from 'root/jsx/components/About'
-import Works from 'root/jsx/components/Works'
+import Data from './_config/data'
+import App from './jsx/components/App'
+import Top from './jsx/components/Top'
+import About from './jsx/components/About'
+import Works from './jsx/components/Works'
 
 Data.winW = window.innerWidth
 Data.winH = window.innerHeight

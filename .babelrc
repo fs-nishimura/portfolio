@@ -1,0 +1,23 @@
+{
+  "plugins": ["transform-object-rest-spread"],
+  "env": {
+    "development": {
+      "presets": ["react", ["env", { "targets": { "chrome": 61 } }]]
+    },
+    "test": {
+      "presets": ["react", ["env", { "targets": { "node": "8.5" } }]]
+    },
+    "production": {
+      "presets": [
+        "react",
+        [
+          "env",
+          {
+            "modules": false,
+            "browsers": ["last 2 versions", "ie >= 11"]
+          }
+        ]
+      ]
+    }
+  }
+}
