@@ -1,17 +1,15 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
-import createStore from '../store/createStore'
-import Routes from './Routes.jsx'
+import React, { Fragment } from 'react'
+import { Route, Switch } from 'react-router-dom'
+import About from './About.jsx'
 
-export default function App() {
-  const store = createStore()
+export default function Routes() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    </Provider>
+    <Fragment>
+      <Switch>
+        <Route path="/" exact component={About} />
+        <Route path="/about" exact component={About} />
+      </Switch>
+    </Fragment>
   )
 }
 

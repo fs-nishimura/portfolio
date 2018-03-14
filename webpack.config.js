@@ -44,46 +44,27 @@ module.exports = {
     ],
   },
 
-  optimization: {
-    minimize: false,
-    runtimeChunk: {
-      name: 'vendor',
-    },
-    splitChunks: {
-      cacheGroups: {
-        default: false,
-        commons: {
-          test: /node_modules/,
-          name: 'vendor',
-          filename: 'vendor.bundle.js',
-          chunks: 'initial',
-          minSize: 1,
-        },
-      },
-    },
-  },
-
   plugins: [
     new webpack.NamedModulesPlugin(),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'vendor',
-    //   filename: 'vendor.bundle.js',
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.bundle.js',
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(
         process.env.NODE_ENV || 'development'
       ),
     }),
     new htmlPlugin({
-      template: 'src/index.html',
+      template: 'main/src/index.html',
     }),
-    new workboxPlugin.GenerateSW({
-      globDirectory: 'public',
-      globPatterns: ['**/*.{html,js}'],
-      swDest: path.join('public', 'sw.js'),
-      clientsClaim: true,
-      skipWaiting: true,
-    }),
+    // new workboxPlugin({
+    //   globDirectory: 'main/public',
+    //   globPatterns: ['**/*.{html,js}'],
+    //   swDest: path.join('main/public', 'sw.js'),
+    //   clientsClaim: true,
+    //   skipWaiting: true,
+    // }),
   ].concat(
     ENV === 'production'
       ? [

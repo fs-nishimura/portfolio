@@ -1,35 +1,45 @@
 import 'babel-polyfill'
-import React from 'react'
+import * as React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Data from './_config/data'
-import App from './jsx/components/App'
-import Top from './jsx/components/Top'
-import About from './jsx/components/About'
-import Works from './jsx/components/Works'
+import App from './components/App.jsx'
 
-Data.winW = window.innerWidth
-Data.winH = window.innerHeight
+const el = document.querySelector('main')
+if (el) {
+  ReactDOM.render(<App />, el)
+}
 
-ReactDOM.render(
-  <Router>
-    <div>
-      <Route exact path="/" component={App}>
-        <Route path="/about" component={About} />
-        <Route path="/works" component={Works} />
-      </Route>
-    </div>
-  </Router>,
-  document.getElementById('wrapAll')
-)
+// import 'babel-polyfill'
+// import React from 'react'
+// import ReactDOM from 'react-dom'
+// import { BrowserRouter as Router, Route } from 'react-router-dom'
+// import Data from './_config/data'
+// import App from './jsx/components/App'
+// import Top from './jsx/components/Top'
+// import About from './jsx/components/About'
+// import Works from './jsx/components/Works'
 
-let resizeTimer
-window.addEventListener('resize', () => {
-  if (resizeTimer !== false) {
-    clearTimeout(resizeTimer)
-  }
-  resizeTimer = setTimeout(() => {
-    Data.winW = window.innerWidth
-    Data.winH = window.innerHeight
-  }, Data.fps)
-})
+// Data.winW = window.innerWidth
+// Data.winH = window.innerHeight
+//
+// ReactDOM.render(
+//   <Router>
+//     <div>
+//       <Route exact path="/" component={App}>
+//         <Route path="/about" component={About} />
+//         <Route path="/works" component={Works} />
+//       </Route>
+//     </div>
+//   </Router>,
+//   document.getElementById('wrapAll')
+// )
+//
+// let resizeTimer
+// window.addEventListener('resize', () => {
+//   if (resizeTimer !== false) {
+//     clearTimeout(resizeTimer)
+//   }
+//   resizeTimer = setTimeout(() => {
+//     Data.winW = window.innerWidth
+//     Data.winH = window.innerHeight
+//   }, Data.fps)
+// })
