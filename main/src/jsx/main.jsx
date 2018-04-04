@@ -33,13 +33,13 @@ if (el) {
 //   document.getElementById('wrapAll')
 // )
 //
-// let resizeTimer
-// window.addEventListener('resize', () => {
-//   if (resizeTimer !== false) {
-//     clearTimeout(resizeTimer)
-//   }
-//   resizeTimer = setTimeout(() => {
-//     Data.winW = window.innerWidth
-//     Data.winH = window.innerHeight
-//   }, Data.fps)
-// })
+let resizeTimer
+window.addEventListener('resize', () => {
+  if (resizeTimer !== false) {
+    clearTimeout(resizeTimer)
+  }
+  resizeTimer = setTimeout(() => {
+    Data.winW = window.innerWidth
+    Data.winH = window.innerHeight
+  }, Data.fps)
+})

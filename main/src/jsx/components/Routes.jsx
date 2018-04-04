@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import About from './About.jsx'
+import Top from './Top.jsx'
 
 export default function Routes() {
   return (
     <Fragment>
       <Switch>
-        <Route path="/" exact component={About} />
+        <Route path="/" exact component={Top} />
         <Route path="/about" exact component={About} />
       </Switch>
     </Fragment>
