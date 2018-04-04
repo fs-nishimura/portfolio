@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux'
-// import counter, { Action as CounterAction } from './counter'
+import counter from './counter'
 
-export default combineReducers({})
+export default combineReducers({ counter })

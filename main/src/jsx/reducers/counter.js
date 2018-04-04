@@ -8,14 +8,16 @@ export function increment() {
   }
 }
 
+const initialState = {
+  value: 0,
+}
+
 // Reducer
-export default (state, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
-    case INCREMENT: {
+    case INCREMENT:
       return { ...state, value: state.value + 1 }
-    }
-    default: {
+    default:
       return state
-    }
   }
 }

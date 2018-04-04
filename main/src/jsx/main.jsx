@@ -8,6 +8,17 @@ if (el) {
   ReactDOM.render(<App />, el)
 }
 
+let resizeTimer
+window.addEventListener('resize', () => {
+  if (resizeTimer !== false) {
+    clearTimeout(resizeTimer)
+  }
+  resizeTimer = setTimeout(() => {
+    Data.winW = window.innerWidth
+    Data.winH = window.innerHeight
+  }, Data.fps)
+})
+
 // import 'babel-polyfill'
 // import React from 'react'
 // import ReactDOM from 'react-dom'
@@ -33,13 +44,3 @@ if (el) {
 //   document.getElementById('wrapAll')
 // )
 //
-let resizeTimer
-window.addEventListener('resize', () => {
-  if (resizeTimer !== false) {
-    clearTimeout(resizeTimer)
-  }
-  resizeTimer = setTimeout(() => {
-    Data.winW = window.innerWidth
-    Data.winH = window.innerHeight
-  }, Data.fps)
-})
