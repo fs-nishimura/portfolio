@@ -15,20 +15,20 @@ class About extends React.Component {
         </p>
         <h2>Skills</h2>
         <div className="history">
-          - Javascript(Mainly Vue.js, learning React), (S)CSS, PHP(Wordpress,
-          Cake2), (X)HTML(5)<br />
-          - Some mySQL, Python<br />Best at creating interactive websites with
-          "pixel perfect" coding<br />
-          - Speaks English/Japanese
+          <span>- Javascipt: VueJs, EmberJS, NodeJs</span>
+          <br />
+          <span>- PHP, mySQL, Python, Ruby (Rails)</span>
+          <br />
+          <span>- Speaks English/Japanese</span>
         </div>
         <h2>Employment</h2>
         <div className="history">
-          <time>May 2015 - June 2017</time>
-          <h3>Front-end Engineer – Full Size Image.Inc, Tokyo</h3>
+          <time>June 2017 - Current</time>
+          <h3>Front-end Engineer – KKVesper, Tokyo</h3>
         </div>
         <div className="history">
-          <time>October 2014 – April 2015</time>
-          <h3>Freelance Web Developer, Osaka</h3>
+          <time>May 2015 - June 2017</time>
+          <h3>Web developer – Full Size Image.Inc, Tokyo</h3>
         </div>
       </div>
     )

@@ -1,15 +1,13 @@
-import PropTypes from 'prop-types'
-const React = require('react')
-const Router = require('react-router')
-const { Link } = Router
+import React from 'react'
+import { Link } from 'react-router-dom'
 const _ = require('underscore')
-const MenuData = require('../../_config/data').menu
+import { menu } from '../../_config/data'
 
 class Header extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: MenuData.map(item => _.clone(item)),
+      items: menu.map(item => _.clone(item)),
     }
   }
 
@@ -19,27 +17,19 @@ class Header extends React.Component {
         <nav className="h-wrap">
           <ul className="h-inner">
             {this.state.items.map(item => {
-              var path = item.path
+              const path = item.path
               if (path.indexOf('contact') > -1) {
                 return (
-                  <li>
+                  <li key={path}>
                     <a href="mailto:naoko.nishimura1018@gmail.com" key={1}>
-                      <span>{item.name}</span>
-                    </a>
-                  </li>
-                )
-              } else if (path.indexOf('works') > -1) {
-                return (
-                  <li>
-                    <a href={path} key={2}>
                       <span>{item.name}</span>
                     </a>
                   </li>
                 )
               } else {
                 return (
-                  <li>
-                    <Link to={path} key={path}>
+                  <li key={path}>
+                    <Link to={path}>
                       <span>{item.name}</span>
                     </Link>
                   </li>
@@ -53,9 +43,4 @@ class Header extends React.Component {
   }
 }
 
-Header.contextTypes = {
-  lang: PropTypes.string,
-  langPrefix: PropTypes.string,
-}
-
-module.exports = Header
+export default Header

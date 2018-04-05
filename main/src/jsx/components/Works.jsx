@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Concept extends React.Component {
+class Works extends React.Component {
   render() {
     return (
       <div className="page-works">
@@ -8,20 +8,23 @@ class Concept extends React.Component {
         <div className="history">
           <time>June 2017</time>
           <h3>
-            <a href="http://artdesignjobs.bijutsutest.xyz/" target="_blank">
-              Dezain no Genba ( job listing website for creators )
+            <a href="http://artdesignjobs.bijutsu.press/" target="_blank">
+              Desgin no Genba
             </a>
+            <p>
+              The Job listing website for designers. <br />
+              FrontEnd - VueJs, Backend - PHP
+            </p>
           </h3>
-          <p>* ID&Password required</p>
         </div>
         <div className="history">
           <time>May 2017</time>
           <h3>
-            <a href="http://fsimtest.shop67.makeshop.jp/" target="_blank">
+            <a href="http://www.mutatokyo.com/" target="_blank">
               muta Online Store
             </a>
+            <p>FrontEnd - VueJs, Backend - PHP</p>
           </h3>
-          <p>* ID&Password required</p>
         </div>
         <div className="history">
           <time>April 2017</time>
@@ -92,4 +95,4 @@ class Concept extends React.Component {
   }
 }
 
-export default Concept
+export default Works

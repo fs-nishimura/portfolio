@@ -1,92 +1,59 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Header from './Header.jsx'
 import Data from '../../_config/data'
-import CanvasUtils from '../../js/classes/utils/canvasUtils.js'
-const CanvasUtils_ = new CanvasUtils()
+import drawCanvas from '../../js/classes/events/Canvas'
 
 class Top extends React.Component {
   render() {
-    // <div className={'container isTop-' + isTop}>
-    // const isTop = this.props.pathname.length == 1 ? true : false
     return (
-      <div id="wrapAll">
-        <div className="ribbon">
-          <span>Beta</span>
+      <div>
+        <div className="page-home page">
+          <p>
+            Front-end engineer<br />
+            Web developer<br />
+            80% design x 20% code<br />
+          </p>
+          <ul className="social">
+            <li>
+              <a href="https://github.com/nnishimura" target="_blank">
+                <img
+                  src="/assets/img/github.svg"
+                  alt="github"
+                  width="30"
+                  height="30"
+                />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.facebook.com/naoko.nishimura1018"
+                target="_blank"
+              >
+                <img
+                  src="/assets/img/fb.svg"
+                  alt="facebook"
+                  width="30"
+                  height="30"
+                />
+              </a>
+            </li>
+            <li>
+              <a href="http://qiita.com/nnishimura" target="_blank">
+                <img
+                  src="/assets/img/qiita.svg"
+                  alt="Qiita"
+                  width="30"
+                  height="30"
+                />
+              </a>
+            </li>
+          </ul>
         </div>
-        <div className="contents">
-          <h1 className="logo">
-            <Link to="/" key="/">
-              nnishimura<span className="dot">.</span>io
-            </Link>
-          </h1>
-          <div className="container isTop-true">{this.props.children}</div>
-        </div>
-        <canvas id="canvas" />
+        <Header />
       </div>
     )
   }
-
-  componentDidMount() {
-    Data.winW = window.innerWidth
-    Data.winH = window.innerHeight
-    Data.canvas = document.getElementById('canvas')
-    Data.canvasContext = Data.canvas.getContext('2d')
-    drawCanvas()
-  }
 }
-
-function drawCanvas() {
-  var canvas = Data.canvas,
-    context = Data.canvasContext
-
-  for (var i = 0; i < Data.numShapes; i++) {
-    Data.shapes[i] = {
-      x: CanvasUtils_.randomRange(-8000, 8000),
-      y: CanvasUtils_.randomRange(-8000, 8000),
-      z: CanvasUtils_.randomRange(0, 8000),
-      radius: CanvasUtils_.randomRange(5, 30),
-    }
-  }
-  update()
-
-  function update() {
-    var width = (canvas.width = Data.winW),
-      height = (canvas.height = Data.winH)
-    context.translate(width / 2, height / 2)
-    context.clearRect(-width / 2, -height / 2, width, height)
-    for (var i = 0; i < Data.numShapes; i += 1) {
-      var shape = Data.shapes[i],
-        perspective = Data.fl / (Data.fl + shape.z)
-      context.save()
-      context.translate(shape.x * perspective, shape.y * perspective)
-      context.scale(perspective, perspective)
-      context.beginPath()
-      context.arc(0, 0, shape.radius, 0, Math.PI * 2, false)
-      context.fillStyle = '#ffffff'
-      context.fill()
-      context.restore()
-      shape.z -= 10
-      if (shape.z < 0) {
-        shape.z = CanvasUtils_.randomRange(5000, 10000)
-      }
-    }
-
-    requestAnimationFrame(update)
-  }
-}
-
-window.addEventListener('load', () => {
-  document.body.className = 'load'
-})
-
-window.addEventListener('mousemove', e => {
-  const ratioX = (Data.winW / 2 - e.pageX) * 0.03
-  const ratioY = (Data.winH / 2 - e.pageY) * 0.01
-
-  for (let i = 0; i < Data.numShapes; i++) {
-    Data.shapes[i].x = Data.shapes[i].x + ratioX
-    Data.shapes[i].y = Data.shapes[i].y + ratioY
-  }
-})
 
 export default Top

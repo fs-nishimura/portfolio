@@ -2,7 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const htmlPlugin = require('html-webpack-plugin')
 const workboxPlugin = require('workbox-webpack-plugin')
@@ -63,13 +63,9 @@ module.exports = [
     ].concat(
       ENV === 'production'
         ? [
-            new UglifyJSPlugin({
-              parallel: {
-                cache: true,
-                workers: 2, // for e.g
-              },
+            new UglifyJsPlugin({
+              test: /\.js($|\?)/i,
             }),
-            new CompressionPlugin(),
           ]
         : []
     ),

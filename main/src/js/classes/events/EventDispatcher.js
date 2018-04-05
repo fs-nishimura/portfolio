@@ -1,16 +1,16 @@
 export default class EventDispatcher {
   constructor() {
     /**
-         * イベントを登録しておくための器
-         */
+     * イベントを登録しておくための器
+     */
     this.listeners = {}
   }
 
   /**
-     *  イベントの登録
-     *  @param  {string}   name     イベント名
-     *  @param  {function} listener 登録する関数
-     */
+   *  イベントの登録
+   *  @param  {string}   name     イベント名
+   *  @param  {function} listener 登録する関数
+   */
   addEventListener(name, listener, context) {
     if (this.listeners[name] === null) {
       this.listeners[name] = []
@@ -20,10 +20,10 @@ export default class EventDispatcher {
   }
 
   /**
-     * イベントの削除
-     *  @param  {string}   name     イベント名
-     *  @param  {function} listener 削除する関数
-     */
+   * イベントの削除
+   *  @param  {string}   name     イベント名
+   *  @param  {function} listener 削除する関数
+   */
   removeEventListener(name, listener) {
     let i, j, len, listeners
 
@@ -43,9 +43,9 @@ export default class EventDispatcher {
   }
 
   /**
-     * イベントの実行
-     *  @param  {string} eventName  イベント名
-     */
+   * イベントの実行
+   *  @param  {string} eventName  イベント名
+   */
   dispatchEvent(name) {
     let j, len, ref, listeners
 

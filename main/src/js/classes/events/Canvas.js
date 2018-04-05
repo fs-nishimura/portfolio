@@ -1,32 +1,7 @@
-import 'babel-polyfill'
-import * as React from 'react'
-import ReactDOM from 'react-dom'
-import App from './components/App.jsx'
-import Data from '../_config/data'
-import CanvasUtils from '../js/classes/utils/canvasUtils.js'
+import CanvasUtils from '../utils/canvasUtils'
+import Data from '../../../_config/data'
 const CanvasUtils_ = new CanvasUtils()
 
-const el = document.querySelector('main')
-if (el) {
-  ReactDOM.render(<App />, el)
-}
-
-Data.winW = window.innerWidth
-Data.winH = window.innerHeight
-Data.canvas = document.getElementById('canvas')
-Data.canvasContext = Data.canvas.getContext('2d')
-drawCanvas()
-
-let resizeTimer
-window.addEventListener('resize', () => {
-  if (resizeTimer !== false) {
-    clearTimeout(resizeTimer)
-  }
-  resizeTimer = setTimeout(() => {
-    Data.winW = window.innerWidth
-    Data.winH = window.innerHeight
-  }, Data.fps)
-})
 function drawCanvas() {
   var canvas = Data.canvas,
     context = Data.canvasContext
@@ -67,16 +42,4 @@ function drawCanvas() {
   }
 }
 
-window.addEventListener('load', () => {
-  document.body.className = 'load'
-})
-
-window.addEventListener('mousemove', e => {
-  const ratioX = (Data.winW / 2 - e.pageX) * 0.03
-  const ratioY = (Data.winH / 2 - e.pageY) * 0.01
-
-  for (let i = 0; i < Data.numShapes; i++) {
-    Data.shapes[i].x = Data.shapes[i].x + ratioX
-    Data.shapes[i].y = Data.shapes[i].y + ratioY
-  }
-})
+export default drawCanvas
