@@ -60,9 +60,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-promise": "^0.5.3",
-    "redux-thunk": "^2.2.0"
-  },
-  "devDependencies": {
+    "redux-thunk": "^2.2.0",
     "ava": "^0.24.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.1.2",
