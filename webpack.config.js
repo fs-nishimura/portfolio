@@ -9,7 +9,7 @@ const workboxPlugin = require('workbox-webpack-plugin')
 
 const package = require('./package')
 const ENV = process.env.NODE_ENV || 'development'
-const DEV_PORT = 4444
+const DEV_PORT = process.env.PORT || 4444
 
 const hmrEntries = [
   'react-hot-loader/patch',
