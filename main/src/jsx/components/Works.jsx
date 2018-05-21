@@ -13,7 +13,7 @@ class Works extends React.Component {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Tablecheck
+              TableCheck
             </a>
             <p>
               Online booking system <br />FrontEnd - ReactJS, mobx
@@ -28,7 +28,7 @@ class Works extends React.Component {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Tablesolution
+              TableSolution
             </a>
             <p>
               Reservation management system<br />FrontEnd - EmberJS
@@ -74,6 +74,7 @@ class Works extends React.Component {
             >
               Kobe Art Marche 2017 Teaser Website
             </a>
+            <p>FrontEnd - CreateJS, Backend - Wordpress, PHP</p>
           </h3>
         </div>
         <div className="history">
@@ -86,6 +87,7 @@ class Works extends React.Component {
             >
               Sunart Official Website
             </a>
+            <p>Wordpress</p>
           </h3>
         </div>
         <div className="history">
@@ -98,6 +100,7 @@ class Works extends React.Component {
             >
               Epoi Online Store
             </a>
+            <p>FutureShop</p>
           </h3>
         </div>
         <div className="history">
@@ -110,6 +113,7 @@ class Works extends React.Component {
             >
               Kawata Gallery Official Website
             </a>
+            <p>Wordpress</p>
           </h3>
         </div>
         <div className="history">
@@ -134,6 +138,7 @@ class Works extends React.Component {
             >
               Epoi Official Website
             </a>
+            <p>Wordpress</p>
           </h3>
         </div>
         <div className="history">
@@ -146,6 +151,7 @@ class Works extends React.Component {
             >
               Kobe Art Marche Official Website 2016
             </a>
+            <p>Wordpress</p>
           </h3>
         </div>
         <div className="history">
@@ -158,6 +164,7 @@ class Works extends React.Component {
             >
               Amana art photo Online Store
             </a>
+            <p>Wordpress</p>
           </h3>
         </div>
       </div>

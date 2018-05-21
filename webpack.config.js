@@ -5,9 +5,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const htmlPlugin = require('html-webpack-plugin')
-const workboxPlugin = require('workbox-webpack-plugin')
 
-const package = require('./package')
+const pkg = require('./package')
 const ENV = process.env.NODE_ENV || 'development'
 const DEV_PORT = process.env.PORT || 4444
 
@@ -17,7 +16,7 @@ const hmrEntries = [
   'webpack/hot/only-dev-server',
 ]
 
-const deps = Object.keys(package.dependencies)
+const deps = Object.keys(pkg.dependencies)
 
 module.exports = [
   {
