@@ -104,6 +104,18 @@ class Works extends React.Component {
           </h3>
         </div>
         <div className="history">
+          <time>October 2016</time>
+          <h3>
+            <a
+              href="http://journal-standard.jp/relume/special/2016aw/life_is/issue16/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Journal Standard relume "Life is..."
+            </a>
+          </h3>
+        </div>
+        <div className="history">
           <time>Auguast 2016</time>
           <h3>
             <a
@@ -163,6 +175,19 @@ class Works extends React.Component {
               target="_blank"
             >
               Amana art photo Online Store
+            </a>
+            <p>Wordpress</p>
+          </h3>
+        </div>
+        <div className="history">
+          <time>Dec 2015</time>
+          <h3>
+            <a
+              href="http://www.christiandada.jp/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Christiandada official brand site
             </a>
             <p>Wordpress</p>
           </h3>
