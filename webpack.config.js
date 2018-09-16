@@ -22,16 +22,16 @@ module.exports = [
   {
     entry: {
       vendor: (ENV !== 'production' ? hmrEntries : []).concat(deps),
-      app: ['./main/src/jsx/main.jsx'],
+      app: ['./app/src/jsx/main.jsx'],
     },
     output: {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
-      path: __dirname + '/main/public',
+      path: __dirname + '/app/public',
       publicPath: '/',
     },
     devServer: {
-      contentBase: 'main/public/',
+      contentBase: 'app/public/',
       historyApiFallback: true,
       port: DEV_PORT,
     },
@@ -57,7 +57,7 @@ module.exports = [
         ),
       }),
       new htmlPlugin({
-        template: 'main/src/index.html',
+        template: 'app/src/index.html',
       }),
     ].concat(
       ENV === 'production'
@@ -71,11 +71,11 @@ module.exports = [
   },
   {
     entry: {
-      style: ['./main/src/sass/style.scss'],
+      style: ['./app/src/sass/style.scss'],
     },
     output: {
       filename: '[name].css',
-      path: __dirname + '/main/public/assets/css',
+      path: __dirname + '/app/public/assets/css',
       publicPath: '/',
     },
     module: {

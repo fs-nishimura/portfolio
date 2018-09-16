@@ -1,7 +1,7 @@
 'use strict'
 
-const constant = require('./main/src/_config/constant')
-const data = require('./main/src/_config/data')
+const constant = require('./app/src/_config/constant')
+const data = require('./app/src/_config/data')
 
 module.exports = {
   develop: {
@@ -10,19 +10,19 @@ module.exports = {
     debug: true,
 
     path: {
-      root: './main/src',
-      sass: './main/src/sass',
-      js: './main/src/js',
-      jsx: './main/src/jsx',
+      root: './app/src',
+      sass: './app/src/sass',
+      js: './app/src/js',
+      jsx: './app/src/jsx',
     },
   },
 
   dist: {
     path: {
-      root: './main/dist',
-      css: './main/assets/css',
-      js: './main/assets/js',
-      img: './main/assets/img',
+      root: './app/dist',
+      css: './app/assets/css',
+      js: './app/assets/js',
+      img: './app/assets/img',
     },
   },
 
@@ -32,10 +32,10 @@ module.exports = {
     debug: false,
 
     path: {
-      root: './main/production',
-      css: './main/production/assets/css',
-      js: './main/production/assets/js',
-      img: './main/production/assets/img',
+      root: './app/production',
+      css: './app/production/assets/css',
+      js: './app/production/assets/js',
+      img: './app/production/assets/img',
     },
   },
 }
