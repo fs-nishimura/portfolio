@@ -327,64 +327,6 @@ $gridW:100/16;
   overflow: hidden;
   @extend .clearfix;
 }
-@for $i  from 1 through 16 {
-  .col-md-#{$i} {
-    width:$gridW*$i+%;
-    float:left;
-    &.col-padl{
-      padding-left:1%/ $i;
-    }
-  }
-  .col-offset-#{$i} {
-    margin-left:$gridW * $i+%;
-  }
-  .col-offsetl-#{$i} {
-    margin-left:$gridW * $i+%;
-  }
-  .col-offsetr-#{$i} {
-    margin-right:$gridW * $i+%;
-  }
-  .col-push-#{$i} {
-    left:$gridW * $i+%;
-  }
-  .col-pull-#{$i} {
-    right:$gridW * $i+%;
-  }
-
-
-}
-
-@for $i  from 1 through 16 {
-  //Sp
-  .ua-sp{
-    .col-md-#{$i}-sp {
-      width:$gridW*$i+%;
-      float:left;
-      &.col-padl-sp{
-        padding-left:1%/ $i;
-      }
-    }
-    .col-offset-#{$i}-sp {
-      margin-left:$gridW * $i+%;
-    }
-    .col-offsetl-#{$i}-sp {
-      margin-left:$gridW * $i+%;
-    }
-    .col-offsetr-#{$i}-sp {
-      margin-right:$gridW * $i+%;
-    }
-    .col-push-#{$i}-sp {
-      left:$gridW * $i+%;
-    }
-    .col-pull-#{$i}-sp {
-      right:$gridW * $i+%;
-    }
-    .nocol-sp{
-      width: 100%;
-      margin:0;
-    }
-  }
-}
 
 /*-------------------------------------------------
 @Placeholder

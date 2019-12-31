@@ -1,6 +1,7 @@
 /* eslint-disable */
 const path = require('path')
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const AutoPrefixer = require('autoprefixer');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -54,7 +55,7 @@ module.exports = [
         cacheGroups: {
           commons: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
+            name: 'vendor',
             chunks: 'all'
           }
         }
@@ -69,8 +70,14 @@ module.exports = [
         )
       }),
       new htmlPlugin({
-        template: 'src/index.html'
-      })
+        template: './src/index.html'
+      }),
+      new CopyWebpackPlugin([
+            {
+                from: './src/assets',
+                to: './assets'
+            }
+        ])
     ].concat(
       ENV === 'production'
         ? [
@@ -79,7 +86,11 @@ module.exports = [
             })
           ]
         : []
-    )
+    ),
+    node: {
+        fs: "empty",
+        net: "empty" // This is to account for what appears to be a bug: https://github.com/josephsavona/valuable/issues/9
+    },
   },
   {
     mode: ENV,
