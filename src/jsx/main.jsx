@@ -1,10 +1,9 @@
-import 'babel-polyfill'
-import * as React from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App.jsx'
 import Data from '../_config/data'
 import CanvasUtils from '../js/classes/utils/canvasUtils.js'
-const CanvasUtils_ = new CanvasUtils()
+const canvasUtils = new CanvasUtils()
 
 const el = document.querySelector('main')
 if (el) {
@@ -33,10 +32,10 @@ function drawCanvas() {
 
   for (var i = 0; i < Data.numShapes; i++) {
     Data.shapes[i] = {
-      x: CanvasUtils_.randomRange(-8000, 8000),
-      y: CanvasUtils_.randomRange(-8000, 8000),
-      z: CanvasUtils_.randomRange(0, 8000),
-      radius: CanvasUtils_.randomRange(5, 30),
+      x: canvasUtils.randomRange(-8000, 8000),
+      y: canvasUtils.randomRange(-8000, 8000),
+      z: canvasUtils.randomRange(0, 8000),
+      radius: canvasUtils.randomRange(5, 30),
     }
   }
   update()
@@ -59,7 +58,7 @@ function drawCanvas() {
       context.restore()
       shape.z -= 10
       if (shape.z < 0) {
-        shape.z = CanvasUtils_.randomRange(5000, 10000)
+        shape.z = canvasUtils.randomRange(5000, 10000)
       }
     }
 

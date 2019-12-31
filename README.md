@@ -2,21 +2,27 @@
 
 http://www.nnishimura.io/
 
+## ToDo
+
+- rails backend API for blogging
+- HTTPS
+- resolve `jsx` path
+
 ## menus
 
-* blog - (in the future)
-  * markdown supported
-* Statistics
-  * github, gitlab contribution gragh
-* profile
-* works - guard on robots.txt. add simple password (one click)
-* contact - mailto: email only.
+- blog
+  - markdown supported
+- Statistics
+  - github, gitlab contribution gragh
+- profile
+- works - guard on robots.txt. add simple password (one click)
+- contact - mailto: email only.
 
 ## tech stack
 
-* frontend, react
-* backend API for statistics
-  * rails
+- frontend, react
+- backend API for statistics
+  - rails
 
 ## memo
 

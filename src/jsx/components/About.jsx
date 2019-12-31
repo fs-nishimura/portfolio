@@ -8,27 +8,25 @@ class About extends React.Component {
           <img src="/assets/img/prof.jpg" alt="Profile Photo" />
         </figure>
         <p className="proftext">
-          @nnishimura has bounced around a lot: Born in Nara, moved to Hyogo,
-          grew up in Kyoto, and then lived in Hawaii (USA) and Melbourne
-          (Australia).
-          <br />She hopes to settle in Tokyo eventually. (For now)
+          Hi, I’m Naoko, a software engineer from Japan in love with all things
+          internet. Online since 2002.
         </p>
         <h2>Skills</h2>
         <div className="history">
-          <span>- Javascipt: VueJs, EmberJS, NodeJs</span>
+          <span>- Javascipt: React, Vue, Ember, NodeJS</span>
           <br />
-          <span>- PHP, mySQL, Python, Ruby (Rails)</span>
+          <span>- Ruby, Elixir, PHP, Python</span>
           <br />
-          <span>- Speaks English/Japanese</span>
+          <span>- Speaks English and Japanese</span>
         </div>
         <h2>Employment</h2>
         <div className="history">
           <time>June 2017 - Current</time>
-          <h3>Front-end Engineer – KKVesper, Tokyo</h3>
+          <h3>Frontend & Backend Engineer - Tablecheck, Tokyo</h3>
         </div>
         <div className="history">
           <time>May 2015 - June 2017</time>
-          <h3>Web developer – Full Size Image.Inc, Tokyo</h3>
+          <h3>Web developer - Full Size Image.Inc, Tokyo</h3>
         </div>
       </div>
     )

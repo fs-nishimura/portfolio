@@ -1,110 +1,118 @@
 /* eslint-disable */
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const AutoPrefixer = require('autoprefixer');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const htmlPlugin = require('html-webpack-plugin')
 const workboxPlugin = require('workbox-webpack-plugin')
 
-const package = require('./package')
+const pkg = require('./package')
 const ENV = process.env.NODE_ENV || 'development'
 const DEV_PORT = 4444
 
 const hmrEntries = [
   'react-hot-loader/patch',
   `webpack-dev-server/client?http://localhost:${DEV_PORT}`,
-  'webpack/hot/only-dev-server',
+  'webpack/hot/only-dev-server'
 ]
 
-const deps = Object.keys(package.dependencies)
+const deps = Object.keys(pkg.dependencies)
 
 module.exports = [
   {
+    mode: ENV,
     entry: {
       vendor: (ENV !== 'production' ? hmrEntries : []).concat(deps),
-      app: ['./main/src/jsx/main.jsx'],
+      app: ['./src/jsx/main.jsx']
     },
     output: {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
-      path: __dirname + '/main/public',
-      publicPath: '/',
+      path: __dirname + '/public',
+      publicPath: '/'
     },
     devServer: {
-      contentBase: 'main/public/',
+      contentBase: 'public/',
       historyApiFallback: true,
-      port: DEV_PORT,
+      port: DEV_PORT
     },
     module: {
       rules: [
         {
           test: /\.(js|jsx)$/,
           use: 'babel-loader',
-          exclude: /node_modules/,
-        },
-      ],
+          exclude: /node_modules/
+        }
+      ]
+    },
+
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all'
+          }
+        }
+      }
     },
 
     plugins: [
       new webpack.NamedModulesPlugin(),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        filename: 'vendor.bundle.js',
-      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(
           process.env.NODE_ENV || 'development'
-        ),
+        )
       }),
       new htmlPlugin({
-        template: 'main/src/index.html',
-      }),
+        template: 'src/index.html'
+      })
     ].concat(
       ENV === 'production'
         ? [
-            new UglifyJsPlugin({
-              test: /\.js($|\?)/i,
-            }),
+            new TerserPlugin({
+              test: /\.js($|\?)/i
+            })
           ]
         : []
-    ),
+    )
   },
   {
+    mode: ENV,
     entry: {
-      style: ['./main/src/sass/style.scss'],
+      style: ['./src/sass/style.scss']
     },
     output: {
       filename: '[name].css',
-      path: __dirname + '/main/public/assets/css',
-      publicPath: '/',
+      path: __dirname + '/public/assets/css',
+      publicPath: '/'
     },
     module: {
       rules: [
         {
           test: /\.scss$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader?-url&minimize&sourceMap!',
-                options: {
-                  sourceMap: true,
-                  minimize: true,
-                },
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: true,
-                },
-              },
-            ],
-          }),
-        },
-      ],
+          use: [{
+            loader: MiniCssExtractPlugin.loader,
+          }, {
+            loader: 'css-loader',
+          }, {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                AutoPrefixer(),
+              ],
+            },
+          }, {
+            loader: 'sass-loader',
+          }],
+        }
+      ]
     },
     devtool: 'source-map',
-    plugins: [new ExtractTextPlugin('[name].css')],
-  },
+    plugins: [new MiniCssExtractPlugin({ filename: '[name].min.css' })]
+  }
 ]

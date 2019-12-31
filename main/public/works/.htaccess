@@ -1,6 +1,0 @@
-AuthUserFile /opt/bitnami/apache2/htdocs/works/.htpasswd
-AuthName "ID: nnishimura PW: letmeseeworks"
-AuthGroupfile /dev/null
-AuthName "ID: nnishimura PW: letmeseeworks"
-AuthType Basic
-require valid-user

@@ -1,8 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Header from './Header.jsx'
-import Data from '../../_config/data'
-import drawCanvas from '../../js/classes/events/Canvas'
 
 class Top extends React.Component {
   render() {
@@ -10,13 +7,20 @@ class Top extends React.Component {
       <div>
         <div className="page-home page">
           <p>
-            Front-end engineer<br />
-            Web developer<br />
-            80% design x 20% code<br />
+            Frontend Engineer
+            <br />
+            Backend Engineer
+            <br />
+            Ramen lover
+            <br />
           </p>
           <ul className="social">
             <li>
-              <a href="https://github.com/nnishimura" target="_blank">
+              <a
+                href="https://github.com/nnishimura"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <img
                   src="/assets/img/github.svg"
                   alt="github"
@@ -28,6 +32,7 @@ class Top extends React.Component {
             <li>
               <a
                 href="https://www.facebook.com/naoko.nishimura1018"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
@@ -39,7 +44,11 @@ class Top extends React.Component {
               </a>
             </li>
             <li>
-              <a href="http://qiita.com/nnishimura" target="_blank">
+              <a
+                href="http://qiita.com/nnishimura"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <img
                   src="/assets/img/qiita.svg"
                   alt="Qiita"
