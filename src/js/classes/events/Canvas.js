@@ -1,5 +1,5 @@
 import CanvasUtils from '../utils/canvasUtils'
-import Data from '../../../_config/data'
+import Data from '../../../config/data'
 const CanvasUtils_ = new CanvasUtils()
 
 function drawCanvas() {

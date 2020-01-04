@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import Routes from './Routes.jsx'
 
@@ -10,11 +9,9 @@ export default function App() {
         <span>Beta</span>
       </div>
       <div className="contents">
-        <Provider store={store}>
-          <BrowserRouter>
-            <Routes />
-          </BrowserRouter>
-        </Provider>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
       </div>
       <canvas id="canvas" />
     </div>

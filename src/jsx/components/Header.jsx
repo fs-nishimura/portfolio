@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { menu } from '../../_config/data'
+import { menu } from '../../config/data'
 
 class Header extends React.Component {
   constructor(props) {

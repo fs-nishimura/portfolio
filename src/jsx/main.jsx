@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App.jsx'
-import Data from '../_config/data'
+import Data from '../config/data'
 import CanvasUtils from '../js/classes/utils/canvasUtils.js'
 const canvasUtils = new CanvasUtils()
 

@@ -4,14 +4,12 @@
   "description": "Naoko's portfolio website",
   "main": "server.js",
   "author": "nnishimura <naoko.nishimura1018@gmail.com>",
-  "license": "",
   "engines": {
     "node": "12.14.0"
   },
   "scripts": {
     "deps": "rm -rf node_modules && npm install",
     "precommit": "eslint main/src",
-    "tags:update": "git fetch --prune git@github.com:nnishimura/nnishimura.io.git '+refs/tags/*:refs/tags/*'",
     "version": "npm run tags:update && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "watch": "webpack-dev-server --hot",
     "dev": "webpack-dev-server",

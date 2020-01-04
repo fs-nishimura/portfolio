@@ -1,7 +1,7 @@
 'use strict'
 
-const constant = require('./main/src/_config/constant')
-const data = require('./main/src/_config/data')
+const constant = require('./main/src/config/constant')
+const data = require('./main/src/config/data')
 
 module.exports = {
   develop: {
