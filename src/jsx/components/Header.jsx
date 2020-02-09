@@ -6,7 +6,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: menu.map(item => _.clone(item)),
+      items: [...menu],
     }
   }
 
