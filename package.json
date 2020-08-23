@@ -1,110 +1,25 @@
 {
   "name": "nnishimura.io",
-  "version": "1.0.0",
-  "description": "Naoko's portfolio website",
-  "main": "server.js",
-  "author": "nnishimura <naoko.nishimura1018@gmail.com>",
-  "engines": {
-    "node": "12.14.0"
-  },
+  "version": "0.0.0",
   "scripts": {
-    "deps": "rm -rf node_modules && npm install",
-    "precommit": "eslint main/src",
-    "version": "npm run tags:update && conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "watch": "webpack-dev-server --hot",
-    "dev": "webpack-dev-server",
-    "start": "node server.js",
-    "build:dev": "NODE_ENV=development webpack",
-    "build": "NODE_ENV=production webpack",
-    "build:size": "NODE_ENV=production webpack --json | webpack-bundle-size-analyzer"
-  },
-  "config": {
-    "validate-commit-msg": {
-      "types": [
-        "feat",
-        "fix",
-        "docs",
-        "style",
-        "refactor",
-        "perf",
-        "test",
-        "build",
-        "ci",
-        "chore",
-        "revert"
-      ],
-      "scope": {
-        "required": false,
-        "allowed": [
-          "*"
-        ],
-        "validate": false,
-        "multiple": false
-      },
-      "warnOnFail": false,
-      "maxSubjectLength": 100,
-      "subjectPattern": ".+",
-      "subjectPatternErrorMsg": "subject does not match subject pattern!",
-      "helpMessage": "",
-      "autoFix": false
-    }
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
+    "vite:dev": "vite",
+    "vite:build": "vite build",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public"
   },
   "dependencies": {
-    "@babel/polyfill": "7.0.0",
-    "axios": "0.19.0",
-    "express": "^4.17.1",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-router-dom": "5.0.1",
-    "redux": "4.0.1",
-    "redux-logger": "3.0.6",
-    "redux-promise": "0.6.0",
-    "redux-thunk": "2.2.0"
+    "sirv-cli": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0",
-    "@babel/plugin-syntax-dynamic-import": "7.0.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.7.5",
-    "@babel/preset-env": "7.0.0",
-    "@babel/preset-flow": "7.0.0",
-    "@babel/preset-react": "7.7.4",
-    "@babel/register": "7.0.0",
-    "autoprefixer": "9.6.0",
-    "ava": "2.1.0",
-    "babel-eslint": "10.0.2",
-    "babel-loader": "8.0.6",
-    "compression-webpack-plugin": "3.0.0",
-    "copy-webpack-plugin": "5.1.1",
-    "css-loader": "3.0.0",
-    "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "1.14.0",
-    "enzyme-to-json": "3.3.5",
-    "eslint": "6.0.1",
-    "eslint-config-prettier": "6.0.0",
-    "eslint-plugin-prettier": "3.1.0",
-    "eslint-plugin-react": "7.14.2",
-    "extract-text-webpack-plugin": "3.0.2",
-    "flow-bin": "0.102.0",
-    "html-webpack-plugin": "3.2.0",
-    "mini-css-extract-plugin": "0.7.0",
-    "node-sass": "4.12.0",
-    "nyc": "11.2.1",
-    "optimize-css-assets-webpack-plugin": "5.0.3",
-    "postcss-loader": "3.0.0",
-    "prettier": "1.18.2",
-    "react-hot-loader": "4.12.0",
-    "react-redux": "7.1.0",
-    "react-test-renderer": "16.0.0",
-    "sass-loader": "6.0.7",
-    "style-loader": "0.23.1",
-    "terser-webpack-plugin": "2.3.1",
-    "webpack": "4.35.0",
-    "webpack-cli": "3.3.5",
-    "webpack-dev-server": "3.7.2",
-    "workbox-webpack-plugin": "4.3.1"
+    "vite": "^1.0.0-rc.1",
+    "@vue/compiler-sfc": "^3.0.0-rc.1",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0"
   }
 }
